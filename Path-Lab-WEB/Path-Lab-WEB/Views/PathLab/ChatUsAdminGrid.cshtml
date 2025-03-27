@@ -1,0 +1,105 @@
+﻿@model Path_Lab_ENTITY.eChatUs
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+</style>
+
+@using (Html.BeginForm("ChatUsAdminGrid", "PathLab", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Chat Us Details</h6>
+            </div>
+            <div class="card-header py-12">
+                <h6 style="text-align:right"><a href="~/PathLab/Index">Back To DashBoard</a></h6>
+            </div>
+            <div class="card-body">
+
+
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Data.." title="Type in a name">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Last Reply Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ChatUsList in ViewBag.ChatUsList)
+                            {
+                                @if (ChatUsList.IsReadAdmin == false)
+                                {
+                                    <tr>
+                                        <td><b>@ChatUsList.FullName</b></td>
+                                        <td><b>@ChatUsList.ReplyDate.ToLongDateString()</b></td>
+                                        <td><a href="~/PathLab/ChatUsAdmin/0/@ChatUsList.FullName/@ChatUsList.UserID" class="fa fa-edit"></a></td>
+
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@ChatUsList.FullName</td>
+                                        <td>@ChatUsList.ReplyDate.ToLongDateString()</td>
+                                        <td><a href="~/PathLab/ChatUsAdmin/0/@ChatUsList.FullName/@ChatUsList.UserID" class="fa fa-edit"></a></td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+@section scripts
+{
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+}

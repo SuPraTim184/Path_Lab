@@ -1,0 +1,303 @@
+﻿@using System.Diagnostics;
+@model Path_Lab_ENTITY.eUser
+
+@{
+    //Layout = "~/Views/Shared/UserLayout.cshtml";
+    Layout = null;
+}
+<link rel="stylesheet" href="~/plugins/datepicker/datepicker3.css">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slide Navbar</title>
+    <link rel="stylesheet" type="text/css" href="slide navbar style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <style>
+        a:link, a:visited, a:hover, a:active {
+            color: black;
+            text-decoration: none;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Jost', sans-serif;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+        }
+
+        .main {
+            width: 550px;
+            height: 650px;
+            background: red;
+            overflow: hidden;
+            background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
+            border-radius: 10px;
+            box-shadow: 5px 20px 50px #000;
+        }
+
+        #chk {
+            display: none;
+        }
+
+        .signup {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        label {
+            color: #fff;
+            font-size: 2.3em;
+            justify-content: center;
+            display: flex;
+            margin: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .5s ease-in-out;
+        }
+
+        labels {
+            color: #009933;
+            font-size: 1.7em;
+            justify-content: center;
+            display: flex;
+            margin: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .5s ease-in-out;
+        }
+
+        lebel {
+            color: #fff;
+            font-size: 1.5em;
+            justify-content: center;
+            display: flex;
+            margin: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .5s ease-in-out;
+        }
+
+        input {
+            width: 60%;
+            height: 20px;
+            background: #e0dede;
+            justify-content: center;
+            display: flex;
+            margin: 20px auto;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 60%;
+            height: 40px;
+            margin: 10px auto;
+            justify-content: center;
+            display: block;
+            color: #fff;
+            background: #573b8a;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            transition: .2s ease-in;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #6d44b8;
+            }
+
+        .login {
+            height: 500px;
+            background: #eee;
+            border-radius: 60% / 10%;
+            transform: translateY(-120px);
+            transition: .8s ease-in-out;
+        }
+
+            .login label {
+                color: #573b8a;
+                transform: scale(.6);
+            }
+
+        #chk:checked ~ .login {
+            transform: translateY(-550px);
+        }
+
+            #chk:checked ~ .login label {
+                transform: scale(1);
+            }
+
+        #chk:checked ~ .signup label {
+            transform: scale(.6);
+        }
+
+        #chks:checked ~ .signup label {
+            transform: scale(.4);
+        }
+
+
+        .Buttons {
+            width: 60%;
+            height: 40px;
+            margin: 10px auto;
+            justify-content: center;
+            display: block;
+            color: #fff;
+            background: #573b8a;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            transition: .2s ease-in;
+            cursor: pointer;
+            text-align: center; /* Added for anchor tag */
+            text-decoration: none; /* Added for anchor tag */
+        }
+
+            .Buttons:hover {
+                background: #6d44b8;
+            }
+
+    </style>
+
+</head>
+<body>
+
+
+    <div class="main">
+
+        <input type="checkbox" id="chk" aria-hidden="true">
+        @using (Html.BeginForm("AddEditUser", "UserAdd", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @if (ViewBag.alert != null)
+            {
+                <script>
+                    alert('@ViewBag.alert');
+                </script>
+
+                @if (ViewBag.alert == "Account Created SuccessFully")
+                {
+                    <script>
+                        window.location.href = "/PathLab/Index";
+                    </script>
+                }
+            }
+
+
+            <div class="signup">
+                <form>
+                    <labels for="chks" aria-hidden="true">Your Lab</labels>
+                    <hr />
+                    <label for="chk" aria-hidden="true">Sign up</label>
+                    <lebel for="chks" aria-hidden="true">Create Your Account</lebel>
+                    @Html.TextBoxFor(model => model.FullName, new{@placeholder="Enter Full Name..." ,  @required = "required"})
+                    @Html.TextBoxFor(model => model.PrimaryEmail, new{@placeholder="Enter Email..." , @type="email" ,  @required = "required" })
+                    @Html.TextBoxFor(model => model.PrimaryPhone, new{@placeholder="Enter Phone Number..." , @type="number", @minlength="10", @maxlength="10" ,  @required = "required" })
+                    @*@Html.TextBoxFor(model => model.UserName, new{@placeholder="UserName..." ,  @required = "required"})*@
+                    @Html.TextBoxFor(model => model.LoginPassword, new{@placeholder="PassWord..." , @type="Password" ,  @required = "required" })
+                    @*<input type="text" name="txt" placeholder="User name" required="">
+                <input type="email" name="email" placeholder="Email" required="">
+                <input type="password" name="pswd" placeholder="Password" required="">*@
+                    <button value="Save" name="Command">Save</button>
+                    @*<button>Sign up</button>*@
+                </form>
+            </div>
+        }
+        <div class="login">
+            @using (Html.BeginForm("login", "home", FormMethod.Post))
+            {
+                <label for="chk" aria-hidden="true">Login</label>
+                @*<input type="email" name="email" placeholder="Email" required="">*@
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control input-lg", @placeholder = "Enter Username...", @type="" ,@required = "required" })
+                @Html.TextBoxFor(model => model.LoginPassword, new { @class = "form-control input-lg", @placeholder = "Enter Password...", @type="password" ,@required = "required" })
+                @*<input type="password" name="pswd" placeholder="Password" required="">*@
+                @*<button>Login</button>*@
+                <button type="submit" id="btnSubmit">Login</button>
+                <hr />
+                <center><a href="#">Forgot Password</a></center>
+                <hr />
+                <br />
+                <a href="~/PathLab/Index" class="buttons" style="color:white;font-weight:bold">Go To Main Page</a>
+
+            }
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<script>
+    $('#img_profilepic').click(function () {
+        $('#file_ProfilePic').trigger('click');
+    });
+
+    function showPic() {
+        var file = $("#file_ProfilePic")[0].files[0];
+        var imageType = /image.*/;
+        if (file.type.match(imageType)) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img_profilepic').attr("src", e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    $(document).ready(function () {
+        //$('#example1').DataTable({
+        //    "aaSorting": [],
+        //    "paging": true,
+        //    "lengthChange": false,
+        //    "searching": false,
+        //    "ordering": true,
+        //    "info": true,
+        //    "autoWidth": false
+        //});
+
+
+        $("#DateOfJoining").datepicker({ format: "dd/mm/yyyy" }).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
+
+        $("#PasswordExpire").datepicker({ format: "dd/mm/yyyy" }).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
+    });
+
+
+</script>
+<script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>

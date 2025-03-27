@@ -1,0 +1,134 @@
+﻿@model Path_Lab_ENTITY.eSaveContact
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+</style>
+
+@using (Html.BeginForm("ManageContactUs", "PathLab", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Contact Us Details</h6>
+            </div>
+            <div class="card-header py-12">
+                <h6 style="text-align:right"><a href="~/PathLab/Index">Back To DashBoard</a></h6>
+            </div>
+            <div class="card-body">
+
+
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Data.." title="Type in a name">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Contact By Name</th>
+                                <th>Contact Email</th>
+                                <th>Contact Subject</th>
+                                <th>Message</th>
+                                <th>Contact Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ContactDetail in ViewBag.ManaContactUsDetails)
+                            {
+                                if (ContactDetail.IsRead == true)
+                                {
+                                    <tr>
+                                        <td>@ContactDetail.ContactName</td>
+                                        <td>@ContactDetail.ContactEmail</td>
+                                        <td title="@ContactDetail.ContactSubject">
+                                            @(ContactDetail.ContactSubject.Length > 50 ? ContactDetail.ContactSubject.Substring(0, 50) + "..." : ContactDetail.ContactSubject)
+                                        </td>
+                                        <td title="@ContactDetail.ContactMessage">
+                                            @(ContactDetail.ContactMessage.Length > 50 ? ContactDetail.ContactMessage.Substring(0, 50) + "..." : ContactDetail.ContactMessage)
+                                        </td>
+                                        <td>@ContactDetail.DateEntered.ToLongDateString()</td>
+
+                                        <td><a href="~/PathLab/ViewContactUS/0/0/@ContactDetail.ContactUsID" class="fa fa-edit"></a> </td>
+
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td><b>@ContactDetail.ContactName</b></td>
+                                        <td><b>@ContactDetail.ContactEmail</b></td>
+                                        <td title="@ContactDetail.ContactSubject">
+                                            <b>@(ContactDetail.ContactSubject.Length > 50 ? ContactDetail.ContactSubject.Substring(0, 50) + "..." : ContactDetail.ContactSubject)</b>
+                                        </td>
+                                        <td title="@ContactDetail.ContactMessage">
+                                            <b> @(ContactDetail.ContactMessage.Length > 50 ? ContactDetail.ContactMessage.Substring(0, 50) + "..." : ContactDetail.ContactMessage)</b>
+                                        </td>
+                                        <td>
+                                            <b>@ContactDetail.DateEntered.ToLongDateString()</b>
+                                        </td>
+
+                                        <td><a href="~/PathLab/ViewContactUS/0/0/@ContactDetail.ContactUsID" class="fa fa-edit"></a> </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+@section scripts
+{
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+*@
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+}

@@ -1,0 +1,97 @@
+﻿@model Path_Lab_ENTITY.eUser;
+@{
+    ViewData["Title"] = "Employee Profile";
+    Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+}
+<style>
+    .fade-out {
+        transition: opacity 1s ease-out, height 0.3s ease-out;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<br>
+<br>
+<div class="section-header" style="padding-bottom:0px!important;">
+    <h2>Update Your Password</h2>
+</div>
+
+<div class="container">
+    <div class="row p-2">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="card p-4">
+                <div class="card-body">
+                    <h5 class="card-title">Your Profile</h5>
+                    <hr>
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="container-fluid">
+                            <div id="alertMessage" class="alert alert-info alert-dismissible fade show" role="alert">
+                                <center>@ViewBag.Message</center>
+                            </div>
+                        </div>
+                    }
+                    @using (Html.BeginForm("EmployeeProfile", "PathLab", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Name:</label>
+                            <div class="col-sm-9">
+                                @Html.DisplayFor(model => model.FullName, new { @class = "form-control-plaintext" })
+                                @Html.HiddenFor(Model => Model.UserID)
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Phone:</label>
+                            <div class="col-sm-9">
+                                @Html.DisplayFor(model => model.PrimaryPhone, new { @class = "form-control-plaintext" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email:</label>
+                            <div class="col-sm-9">
+                                @Html.DisplayFor(model => model.PrimaryEmail, new { @class = "form-control-plaintext" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Password:</label>
+                            <div class="col-sm-9">
+                                @Html.PasswordFor(model => model.LoginPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn" name="Command" value="Update" style="background-color: #008374; color:#f2f2f2">Save</button>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <a href="~/PathLab/Index" class="btn" style="background-color: #008374; color:#f2f2f2">Go to Home</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#alertMessage').addClass('fade-out');
+            setTimeout(function () {
+                $('#alertMessage').alert('close');
+            }, 1000); // Time to wait for the fade-out transition to complete
+        }, 10000); // Time to wait before starting fade-out
+    });
+</script>

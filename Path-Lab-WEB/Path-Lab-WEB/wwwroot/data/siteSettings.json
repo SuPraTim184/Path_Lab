@@ -1,0 +1,12 @@
+[
+  {
+
+    "SiteUrl": null",
+    "SmtpHost": null,
+    "FromEmail": null,
+    "CCEmail": "sahasusabhan084@gmail.com",
+    "FromName": "Path Lab",
+    "EmailPass": null,
+    "SMTPPort": "587"
+  }
+]

@@ -1,0 +1,306 @@
+﻿@{
+    ViewData["Title"] = "TestInvoice";
+    Layout = "~/Views/Shared/UserLayoutOthers.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+            .invoice-box table td {
+                padding: 5px;
+                vertical-align: top;
+            }
+
+            .invoice-box table tr td:nth-child(2) {
+                text-align: right;
+            }
+
+            .invoice-box table tr.top table td {
+                padding-bottom: 20px;
+            }
+
+                .invoice-box table tr.top table td.title {
+                    font-size: 45px;
+                    line-height: 45px;
+                    color: #333;
+                }
+
+            .invoice-box table tr.information table td {
+                padding-bottom: 40px;
+            }
+
+            .invoice-box table tr.heading td {
+                background: #eee;
+                border-bottom: 1px solid #ddd;
+                font-weight: bold;
+            }
+
+            .invoice-box table tr.item td {
+                border-bottom: 1px solid #eee;
+            }
+
+            .invoice-box table tr.item.last td {
+                border-bottom: none;
+            }
+
+            .invoice-box table tr.total td:nth-child(3),
+            .invoice-box table tr.total td:nth-child(4) {
+                border-top: 2px solid #eee;
+                font-weight: bold;
+            }
+
+    .note {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+<br>
+<br>
+
+<div class="invoice-box" id="InvoiceDownloads">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td class="title">
+                <h2>Your Lab</h2>
+                <p>Railghumti, Near S.P Bungalow, Cooch Behar</p>
+                <p>Contact: 8927483306</p>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-family:'Times New Roman', Times, serif; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-weight:bold; text-align:center; font-size:16px;">
+                INVOICE
+            </td>
+        </tr>
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            Bill To: @Context.Request.Cookies["UFullName"].ToString()<br>
+                            Patient Name: @Model.PatientName<br />
+                            Appointment Date : @Model.BookingDate.ToString("dd-MM-yyyy")
+                        </td>
+                        <td colspan="2">
+                            Test ID #: @Model.BookingID<br>
+                            Booking Date: @Model.DateEntered.ToString("dd-MM-yyyy")<br>
+                            Payment: @Model.PaymentDue
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr style="border: 1px solid #eee; font-weight:bold;border-bottom:dotted;">
+            <th>Test Name</th>
+            <th>Test Fees</th>
+        </tr>
+        <hr>
+
+        @foreach (var Test in ViewBag.TestBookingDetails)
+        {
+            <tr>
+                <th>@Test.TestName </th>
+                <th>@Test.Fees </th>
+            </tr>
+        }
+    </table>
+    <p class="note">Total Payable Amount: @Model.TotalFees </p>
+    <p class="note">Total Pament Amount: @Model.TotalPayment </p>
+    @if ((decimal?)Model.DueAmount == 0.00m)
+    {
+        <p class="note"> Payment Successfully</p>
+    }
+    else
+    {
+        <p class="note">Total Due Amount: @Model.DueAmount</p>
+    }
+    <p class="note">THANK YOU ,<br>Your smile is best return for us.</p>
+</div>
+
+<br>
+<center><button onclick="generatePDF()" class="btn btn-outline-success">Download PDF</button></center>
+<br>
+<hr>
+<br>
+
+<div>
+    <style>
+        @@page {
+            size: A4;
+            margin: 5mm;
+        }
+
+        .a4-page {
+            width: 210mm;
+            height: 297mm;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 5mm;
+            box-sizing: border-box;
+        }
+
+        .a4header, .a4footer {
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .a4footer {
+            border-top: 1px solid #ccc;
+            border-bottom: none;
+        }
+
+        .content {
+            padding: 20px 0;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .full-page-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .full-page-table td, .full-page-table th {
+                padding: 8px;
+            }
+
+            .full-page-table th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
+    </style>
+    @if ((decimal?)Model.DueAmount == 0.00m)
+    {
+        @foreach (var i in ViewBag.ManageTestReportDetails)
+        {
+            if (i.TestReportHTML != null)
+            {
+                <div class="a4-page" id=@i.TestBookingDetailsID>
+                    <div class="a4header">
+                        <h4 class="title">Your Lab - – Appointment Health Care</h4>
+                        <h6 class="title">
+                            <b>Railghumti, Near S.P Bungalow, Cooch Behar, 736101</b>
+                        </h6>
+                        <h6 class="title">
+                            <b>Email :</b> yourlabsample@gmail.com &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Phone :</b> +91-8927483306
+                        </h6>
+                    </div>
+                    <div class="content">
+                        <div class="section">
+                            <h2 class="section-title">Patient Details Below : </h2>
+                            <p class="section-content">
+                                <table class="full-page-table">
+                                    <tbody>
+                                        <tr>
+
+                                            <td><b>Test ID #: </b></td>
+                                            <td>@Model.BookingID</td>
+                                            <td><b>Patient Name : </b></td>
+                                            <td>@Model.PatientName</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td><b>Age : </b></td>
+                                            <td>@Model.PatientAge</td>
+                                            <td><b>Appointment Date : </b></td>
+                                            <td>@Model.BookingDate.ToString("dd-MM-yyyy")</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </p>
+                        </div>
+                        <div class="section">
+                            <h3 class="section-title">Report Section &nbsp;&nbsp;&nbsp;&nbsp;&nbsp<b>Test Name : </b>@i.TestName</h3>
+                            <p class="section-content">
+                                @Html.Raw(@i.TestReportHTML)
+                            </p>
+                        </div>
+                        <!-- Add more sections as needed -->
+                    </div>
+                    <div class="a4footer">
+                        <p>©2024 Your Lab</p>
+                    </div>
+                </div>
+
+                <br>
+                <center><button onclick="GenerateReportPDF()" class="btn btn-outline-success">Download Report</button></center>
+                <br>
+                <script>
+                    async function GenerateReportPDF() {
+                        const { jsPDF } = window.jspdf;
+                        const doc = new jsPDF('p', 'pt');
+                        const element = document.getElementById(@i.TestBookingDetailsID);
+
+                        await html2canvas(element).then((canvas) => {
+                            const imgData = canvas.toDataURL('image/png');
+                            const imgProps = doc.getImageProperties(imgData);
+                            const pdfWidth = doc.internal.pageSize.getWidth();
+                            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                            doc.save('Report.pdf');
+                        });
+                    }
+                </script>
+            }
+        }
+    }
+</div>
+
+<script>
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'pt', 'a4');
+        const element = document.getElementById('InvoiceDownloads');
+
+        await html2canvas(element).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const imgProps = doc.getImageProperties(imgData);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            doc.save('invoice.pdf');
+        });
+    }
+</script>
+

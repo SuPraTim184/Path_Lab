@@ -1,0 +1,160 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using System.Diagnostics;
+@using Path_Lab_ENTITY
+@model Path_Lab_ENTITY.eTest
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    #editor {
+        width: 100%;
+        padding: 10px;
+        border-right: 1px solid #ddd;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    #preview {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+    }
+
+    textarea {
+        width: 100%;
+        height: calc(100vh - 40px);
+        border: none;
+        resize: none;
+    }
+</style>
+
+@using (Html.BeginForm("AddEditTestReportSample", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+            <label for="orangeForm-name37">Select Test</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(model => model.TestId, new SelectList(ViewBag.TestDetail, "TestId", "Name", ViewBag.TestDetail), "--None--", new { @class = "form-control", @id = "TestId", @required = "required" })
+            @Html.HiddenFor(m => m.TestReportSampleID, new { @id = "TestReportSampleID" })
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <br>
+    <hr>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="editor">
+                        <h5>HTML Editor</h5>
+
+                        @Html.TextAreaFor(m => m.ReportHTML, new { @placeholder = "Type your HTML code here...", @id = "ReportHTML" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="preview">
+                        <h5>Live Preview</h5>
+                        <iframe id="output" style="width: 100%; height: calc(100vh - 80px); border: none;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center py-4">
+        <button value="Save" name="Command" class="btn  btn-outline-primary">Save Data@* <i class="fa fa-paper-plane-o ml-1"></i> *@</button>
+    </div>
+}
+
+<script>
+    // Function to update iframe with HTML code
+    function updatePreview() {
+        const html = document.getElementById('ReportHTML').value;
+        const iframe = document.getElementById('output').contentWindow.document;
+        iframe.open();
+        iframe.write(html);
+        iframe.close();
+    }
+
+    // Event listener to update preview on input change
+    document.getElementById('ReportHTML').addEventListener('input', updatePreview);
+</script>
+
+
+@* <script type="text/javascript">
+    $(document).ready(function () {
+        $('#TestId').change(function () {
+            var selectedTestId = $(this).val();
+            $.ajax({
+                url: '@Url.Action("AddEditTestReportSample", "Test")',
+                type: 'GET',
+                data: { id: selectedTestId },
+                success: function (response) {
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX request failed: " + error);
+                }
+            });
+        });
+    });
+</script> *@
+@* <script type="text/javascript">
+    $(document).ready(function () {
+        $('#TestId').change(function () {
+            var selectedTestId = $(this).val();
+
+            // Construct the URL as "/Test/AddEditTestReportSample/0/0/" followed by selectedTestId
+            var url = '/Test/AddEditTestReportSample/0/0/' + selectedTestId;
+
+            $.ajax({
+                url: url,  // Use the constructed URL
+                type: 'GET',
+                success: function (response) {
+                    // Handle the response here if needed
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX request failed: " + error);
+                }
+            });
+        });
+    });
+</script> *@
+<script>
+    $(document).ready(function () {
+        $('#TestId').change(function () {
+            var selectedValue = document.getElementById("TestId").value;
+            if (selectedValue) {
+                var url = "/Test/AddEditTestReportSample/0/0/" + selectedValue;
+                window.location.href = url;
+            }
+        });
+    });
+
+</script>
+<script>
+    window.onload = function () {
+        updatePreview();
+    };
+</script>

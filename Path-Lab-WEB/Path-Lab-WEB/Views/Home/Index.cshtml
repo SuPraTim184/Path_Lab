@@ -1,0 +1,477 @@
+﻿@* @model Path_Lab_ENTITY.eDoctor *@
+@model Path_Lab_ENTITY.eDashBoard
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        font-size: 40px;
+        color: #080808;
+        -webkit-transition: all 0.4s ease 0s;
+        -o-transition: all 0.4s ease 0s;
+        transition: all 0.4s ease 0s;
+    }
+
+        h1 span {
+            display: block;
+            font-size: 0.5em;
+            line-height: 1.3;
+        }
+
+        h1 em {
+            font-style: normal;
+            font-weight: 600;
+        }
+
+    .three h1 {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.5em;
+        padding-bottom: 15px;
+        position: relative;
+    }
+
+        .three h1:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 5px;
+            width: 55px;
+            background-color: #111;
+        }
+
+        .three h1:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            height: 1px;
+            width: 95%;
+            max-width: 255px;
+            background-color: #333;
+        }
+
+    hr {
+        background-color: #fff;
+        padding: 0;
+        margin: 10px;
+    }
+
+        hr.hr-1 {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+        }
+
+</style>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+@* <h1>Welcome to Dashboard</h1> *@
+<div class="three p-5">
+    <h1>Welcome : @Context.Request.Cookies["UFullName"].ToString()</h1>
+</div>
+
+<div class="row">
+
+                        <!-- Pending (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Pending Amount (Monthly)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RS.@Model.MonthlyDue</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Earnings Amount (Monthly)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RS.@Model.MonthlyPay</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Pending Amount (Yearly)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RS.@Model.YearlyDue</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Earnings Amount (Yearly)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RS.@Model.YearlyPay</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <!-- Booking Yearly Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Yearly Booking Appointment</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.YearlyBookingAppointment</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cancel Yearly Requests Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Yearly Canceled Appointment</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.YearlyCancelledAppointment</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                           <!-- Pending Monthly Requests Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Monthly Pending Appointment</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MonthlyPendingAppointment</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Cancel Monthly Requests Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Monthly Canceled Appointment</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MonthlyCancelledAppointment</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                Test Booking
+            </div>
+            <div class="card-body">
+                <div>
+                    <label for="timePeriod">Select Time Period:</label>
+                    <select id="timePeriod" onchange="loadChartData()">
+                        <option value="week">Per Week</option>
+                        <option value="month" selected>Per Month</option>
+                        <option value="year">Per Year</option>
+                        <option value="5year">Last 5 Years</option>
+                    </select>
+                </div>
+
+                <canvas id="bookingChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                Appontment Booking
+            </div>
+            <div class="card-body">
+                <div>
+                    <label for="timePeriods">Select Time Period:</label>
+                    <select id="timePeriods" onchange="loadChartDatas()">
+                        <option value="week">Per Week</option>
+                        <option value="month" selected>Per Month</option>
+                        <option value="year">Per Year</option>
+                        <option value="5year">Last 5 Years</option>
+                    </select>
+                </div>
+                <canvas id="AppointmentbookingChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+
+        <div class="card">
+            <div class="card-header">
+                See Details in Calender
+            </div>
+            <div class="card-body">
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-6"></div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transactionModalLabel">Transaction Details</h5>
+                @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> *@
+            </div>
+            <div class="modal-body" id="modalContent">
+                <!-- Transaction details will be populated here -->
+            </div>
+            @* <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> *@
+        </div>
+    </div>
+</div>
+
+<!-- For Calendar-->
+<script>
+    $(document).ready(function () {
+        var calendarEl = document.getElementById('calendar');
+
+        // Initialize FullCalendar
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            datesSet: function (dateInfo) {
+                var startDate = new Date(dateInfo.start);
+                var endDate = new Date(dateInfo.end);
+                fetchEvents(startDate, endDate);
+            },
+            eventContent: function (arg) {
+                return { html: arg.event.title };
+            },
+            eventClick: function (info) {
+                var details = `
+                            <strong>Total Amount:</strong> Rs.${info.event.extendedProps.totalPayAmount}<br>
+                            <strong>Appointments Booked:</strong> ${info.event.extendedProps.totalAppointment}<br>
+                            <strong>Test Bookings:</strong> ${info.event.extendedProps.totalTestBooking}
+                        `;
+                // Populate modal content and show the modal
+                $('#modalContent').html(details);
+                $('#transactionModal').modal('show');
+            }
+        });
+
+        function fetchEvents(startDate, endDate) {
+            $.ajax({
+                url: '@Url.Action("GetDailyTransactions", "Home")',
+                data: {
+                    startDate: startDate.toISOString().split('T')[0],
+                    endDate: endDate.toISOString().split('T')[0]
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var events = [];
+                    $.each(data, function (index, transaction) {
+                        events.push({
+                            title: 'Rs.' + transaction.totalPayAmount + '<br>' +
+                                'A B :' + transaction.totalAppointment + '<br>' +
+                                'T B :' + transaction.totalTestBooking,
+                            start: transaction.transactionDate,
+                            allDay: true,
+                            extendedProps: {
+                                totalPayAmount: transaction.totalPayAmount,
+                                totalAppointment: transaction.totalAppointment,
+                                totalTestBooking: transaction.totalTestBooking
+                            }
+                        });
+                    });
+                    calendar.removeAllEvents();
+                    calendar.addEventSource(events);
+                },
+                error: function () {
+                    // Handle error
+                }
+            });
+        }
+
+        // Render the calendar
+        calendar.render();
+    });
+</script>
+
+<!-- For Test Booking-->
+<script>
+    const ctx = document.getElementById('bookingChart').getContext('2d');
+    debugger;
+    const bookingChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [], // Labels will be set dynamically
+            datasets: [{
+                label: 'Total Bookings',
+                data: [], // Data will be set dynamically
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                tension: 0.1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { beginAtZero: true },
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    async function loadChartData() {
+        const selectedPeriod = document.getElementById("timePeriod").value;
+
+        try {
+            // Fetch data from the controller
+            const response = await fetch(`/Home/GetBookingData?period=${selectedPeriod}`);
+            const result = await response.json();
+
+            // Update chart with the fetched data
+            bookingChart.data.labels = result.labels;
+            bookingChart.data.datasets[0].data = result.data;
+            bookingChart.update();
+        } catch (error) {
+            console.error("Error loading booking data:", error);
+        }
+    }
+
+    // Load the default chart data on page load
+    loadChartData();
+</script>
+
+<!--For Appointment Booking-->
+<script>
+    const ctxs = document.getElementById('AppointmentbookingChart').getContext('2d');
+    const AppointmentbookingChart = new Chart(ctxs, {
+        type: 'line',
+        data: {
+            labels: [], // Labels will be set dynamically
+            datasets: [{
+                label: 'Total Appointment Bookings',
+                data: [], // Data will be set dynamically
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                tension: 0.1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { beginAtZero: true },
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    async function loadChartDatas() {
+        const selectedPeriods = document.getElementById("timePeriods").value;
+
+        try {
+            // Fetch data from the controller
+            const response = await fetch(`/Home/GetAppointmentBookingData?period=${selectedPeriods}`);
+            const result = await response.json();
+
+            // Update chart with the fetched data
+            AppointmentbookingChart.data.labels = result.labels;
+            AppointmentbookingChart.data.datasets[0].data = result.data;
+            AppointmentbookingChart.update();
+        } catch (error) {
+            console.error("Error loading booking data:", error);
+        }
+    }
+
+    // Load the default chart data on page load
+    loadChartDatas();
+</script>

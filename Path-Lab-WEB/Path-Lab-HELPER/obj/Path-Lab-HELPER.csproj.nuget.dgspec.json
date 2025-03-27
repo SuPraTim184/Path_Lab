@@ -1,0 +1,302 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-HELPER\\Path-Lab-HELPER.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DL\\Path-Lab-DL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DL\\Path-Lab-DL.csproj",
+        "projectName": "Path-Lab-DL",
+        "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DL\\Path-Lab-DL.csproj",
+        "packagesPath": "C:\\Users\\sahas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\sahas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DS\\Path-Lab-DS.csproj": {
+                "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DS\\Path-Lab-DS.csproj"
+              },
+              "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj": {
+                "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DS\\Path-Lab-DS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DS\\Path-Lab-DS.csproj",
+        "projectName": "Path-Lab-DS",
+        "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DS\\Path-Lab-DS.csproj",
+        "packagesPath": "C:\\Users\\sahas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DS\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\sahas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj",
+        "projectName": "Path-Lab-ENTITY",
+        "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj",
+        "packagesPath": "C:\\Users\\sahas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\sahas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-HELPER\\Path-Lab-HELPER.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-HELPER\\Path-Lab-HELPER.csproj",
+        "projectName": "Path-Lab-HELPER",
+        "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-HELPER\\Path-Lab-HELPER.csproj",
+        "packagesPath": "C:\\Users\\sahas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-HELPER\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\sahas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DL\\Path-Lab-DL.csproj": {
+                "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-DL\\Path-Lab-DL.csproj"
+              },
+              "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj": {
+                "projectPath": "C:\\Users\\sahas\\OneDrive\\Documents\\Path_Lab\\Path-Lab-WEB\\Path-Lab-ENTITY\\Path-Lab-ENTITY.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,375 @@
+﻿@model Path_Lab_ENTITY.eAppoinmentBooking;
+@{
+    ViewData["Title"] = "DoctorDashBoard";
+    Layout = "~/Views/Shared/DoctorLayout.cshtml";
+}
+<style>
+    h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        font-size: 40px;
+        color: #080808;
+        -webkit-transition: all 0.4s ease 0s;
+        -o-transition: all 0.4s ease 0s;
+        transition: all 0.4s ease 0s;
+    }
+
+        h1 span {
+            display: block;
+            font-size: 0.5em;
+            line-height: 1.3;
+        }
+
+        h1 em {
+            font-style: normal;
+            font-weight: 600;
+        }
+
+    .three h1 {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.5em;
+        padding-bottom: 5px;
+        position: relative;
+    }
+
+        .three h1:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 5px;
+            width: 55px;
+            background-color: #111;
+        }
+
+        .three h1:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            height: 1px;
+            width: 95%;
+            max-width: 255px;
+            background-color: #333;
+        }
+
+    hr {
+        background-color: #fff;
+        padding: 0;
+        margin: 10px;
+    }
+
+        hr.hr-1 {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+        }
+
+</style>
+<style>
+
+    .content {
+        width: 100%;
+        max-width: 512px;
+        padding-block: 48px;
+        border-radius: 8px;
+        background-color: #242423;
+    }
+
+    keyframes marquee {
+        /*       from:
+
+                                                                                                    {
+                                                                                                        transform: translateX(0);
+                                                                                                    }
+
+                                                                                                    to {
+                                                                                                        transform: translateX(-100%);
+                                                                                                    }*/
+    }
+
+    .marquee {
+        position: relative;
+        background-color: #f5cb5c;
+        padding-block: 8px;
+        overflow: hidden;
+    }
+
+        .marquee:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+    .marquee__inner {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .marquee__part {
+        flex-shrink: 0;
+        padding-inline: 2px;
+        animation-name: marquee;
+        animation-duration: 4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .border-left-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .border-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+        border-right: 1px solid #008374; /* Customize the color as needed */
+        border-top: 1px solid #008374; /* Customize the color as needed */
+        border-bottom: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    #Table {
+        height: 600px;
+        overflow-y: auto;
+    }
+</style>
+<style>
+    .container {
+        margin-top: 100px;
+    }
+
+    .counter-box {
+        display: block;
+        background: #f6f6f6;
+        padding: 40px 20px 37px;
+        text-align: center
+    }
+
+        .counter-box p {
+            margin: 5px 0 0;
+            padding: 0;
+            color: #909090;
+            font-size: 18px;
+            font-weight: 500
+        }
+
+        .counter-box i {
+            font-size: 60px;
+            margin: 0 0 15px;
+            color: #d2d2d2
+        }
+
+    .counter {
+        display: block;
+        font-size: 32px;
+        font-weight: 700;
+        color: #666;
+        line-height: 28px
+    }
+
+    .counter-box.colored {
+        background: #3acf87;
+    }
+
+        .counter-box.colored p,
+        .counter-box.colored i,
+        .counter-box.colored .counter {
+            color: #fff
+        }
+</style>
+<br />
+<br />
+@* <section>
+    <div class="marquee">
+        <marquee>
+            <ul class="marquee__inner">
+                <li class="marquee__part">
+                    Welcome •
+                </li>
+                <li class="marquee__part">
+                    Back •
+                </li>
+                <li class="marquee__part">
+                    Mr. @Context.Request.Cookies["UFullName"].ToString() •
+                </li>
+                <li class="marquee__part">
+                    Thank You •
+                </li>
+            </ul>
+        </marquee>
+    </div>
+</section> *@
+
+
+
+<div class="row container-fluid" id="Table">
+    <div class="col-sm-6">
+
+        <div class="three p-2">
+            <h1>Welcome : @Context.Request.Cookies["UFullName"].ToString()</h1>
+        </div>
+        <br />
+        @* <div class="container"> *@
+        <div class="row">
+            <div class="four col-md-3">
+                <div class="counter-box colored">
+                    <i class="fa fa-calendar"></i>
+                    <span class="counter">@Model.TodayAppointment</span>
+                    <p>Today Appoointment</p>
+                </div>
+            </div>
+            <div class="four col-md-3">
+                <div class="counter-box">
+                    <i class="fa fa-calendar"></i>
+                    <span class="counter">@Model.TodayAppointmentCancel</span>
+                    <p>Today Canceled Appointment</p>
+                </div>
+            </div>
+            <div class="four col-md-3">
+                <div class="counter-box">
+                    <i class="fa fa-calendar"></i>
+                    <span class="counter">@Model.ThisMonthAppointment</span>
+                    <p>This Month Appointment</p>
+                </div>
+            </div>
+            <div class="four col-md-3">
+                <div class="counter-box">
+                    <i class="fa fa-calendar"></i>
+                    <span class="counter">@Model.ThisMonthAppointmentCancel</span>
+                    <p>This Month Canceled Appointment</p>
+                </div>
+            </div>
+        </div>
+        @* </div> *@
+        <br />
+        <div class="card">
+            <h5 class="card-header">Last 7 Days Appointment</h5>
+            <div class="card-body">
+                <canvas id="myLineChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div class="col-sm-6">
+
+        <div class="card" style="width: auto;">
+            <div class="card-body">
+                <h5 class="card-title">Booking Details</h5>
+                <hr />
+                <div class="card-text">
+                    <div>
+                        @using (Html.BeginForm("DoctorDashBoard", "DoctorWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="row p-2 text-center">
+                                <label class="col-sm-4 control-label">Select date :</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBox("BookingDate", null, new { @class = "form-control", @placeholder = "Select Date...", @type = "date" })
+                                </div>
+                            </div>
+                            <center>
+                                <center>
+                                    <button type="submit" class="btn btn-outline-success" value="Search" name="Command">Submit</button>
+                                    <a href="~/DoctorWork/DoctorDashBoard" class="btn btn-outline-success">Clear</a>
+                                </center>
+                            </center>
+                        }
+                    </div>
+                    <hr />
+                    <div class="table table-responsive table-striped table-hover p-1">
+                        <table class="table table-bordered table-responsive table-striped table-hover ">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Booking Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var AB in ViewBag.ManageAppointmentBooking)
+                                {
+                                    <tr>
+                                        <td>@AB.BookingID</td>
+                                        <td>@AB.BookingDate.ToString("dd-MM-yyyy")</td>
+                                        <td>@AB.PatientName</td>
+                                        <td>
+                                            <a href="~/DoctorWork/AddEditprescription/@AB.AppointmentBookingID/@AB.BookingID"><i class="fa-solid fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.counter').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 4000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/DoctorWork/GetData', // Adjust to your controller endpoint
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Assuming 'data' is an object with 'labels' and 'values' properties
+                const labels = data.labels; // e.g., ['January', 'February', 'March']
+                const values = data.values; // e.g., [10, 20, 30]
+
+                const ctx = document.getElementById('myLineChart').getContext('2d');
+                const myLineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Appointment Booked : ',
+                            data: values,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    });
+</script>

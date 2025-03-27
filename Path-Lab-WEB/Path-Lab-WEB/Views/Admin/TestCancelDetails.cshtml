@@ -1,0 +1,137 @@
+﻿@model Path_Lab_ENTITY.eTestBookingCancel
+
+@{
+    ViewData["Title"] = "Test Cancel";
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+</style>
+
+@using (Html.BeginForm("TestCancelDetails", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Test Cancel Details</h6>
+            </div>
+            <div class="card-header py-12">
+                <h6 style="text-align:right"><a href="~/PathLab/Index">Back To DashBoard</a></h6>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="orangeForm-name37">To Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control", @placeholder = "To Date...", @type = "date" })
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label for="orangeForm-name37">From Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control", @placeholder = "From Date...", @type = "date" })
+                    </div>
+                </div>
+
+                <div class="text-center py-4">
+                    <button value="Search" name="Command" class="btn btn-success btn-outline-primary">Save Search</button>
+                    <a href="~/Admin/TestCancelDetails" class="btn btn-success btn-outline-primary">Clear Search</a>
+                </div>
+
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Data.." title="Type in a name">
+
+                @{
+                    var paymentDetailsList = ViewBag.TestCancelDetailsList as IEnumerable<dynamic>; // Assuming it's a dynamic type
+                    bool hasPaymentDetails = paymentDetailsList != null && paymentDetailsList.Any();
+                }
+
+                @if (hasPaymentDetails)
+                {
+                    var lowDateEntered = paymentDetailsList.Min(pd => pd.TestCancelDate);
+                    var highDateEntered = paymentDetailsList.Max(pd => pd.TestCancelDate);
+
+                    <br />
+                    <center>
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            From @lowDateEntered.ToLongDateString() To @highDateEntered.ToLongDateString()
+                        </h6>
+                    </center>
+                    <br />
+                }
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Booking Date</th>
+                                <th>Cancel Date</th>
+                                <th>User Name</th>
+                                <th>Patient Name</th>
+                                <th>Contact Details</th>
+                                <th>Reason</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var PaymentDetails in ViewBag.TestCancelDetailsList)
+                            {
+                                <tr>
+                                    <td>@PaymentDetails.BookingID</td>
+                                    <td>@PaymentDetails.BookingDate.ToLongDateString()</td>
+                                    <td>@PaymentDetails.TestCancelDate.ToLongDateString()</td>
+                                    <td>@PaymentDetails.FullName</td>
+                                    <td>@PaymentDetails.PatientName</td>
+                                    <td>@PaymentDetails.PrimaryEmail | @PaymentDetails.PrimaryPhone </td>
+                                    <td>@PaymentDetails.Reason</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+

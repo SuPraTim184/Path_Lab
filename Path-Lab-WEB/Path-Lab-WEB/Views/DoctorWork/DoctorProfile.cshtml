@@ -1,0 +1,67 @@
+﻿@model Path_Lab_ENTITY.eUser;
+@{
+    ViewData["Title"] = "DoctorProfile";
+    Layout = "~/Views/Shared/DoctorLayout.cshtml";
+}
+<br>
+<br>
+<div class="section-header" style="padding-bottom:0px!important;">
+    <h2>Update Your Password</h2>
+</div>
+
+<div class="container">
+    <div class="row p-2">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="card p-4">
+                <div class="card-body">
+                    <h5 class="card-title">Your Profile</h5>
+                    <hr>
+
+                    @using (Html.BeginForm("DoctorProfile", "DoctorWork", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Name:</label>
+                            <div class="col-sm-9">
+                                @Html.DisplayFor(model => model.FullName, new { @class = "form-control-plaintext" })
+                                @Html.HiddenFor(Model => Model.UserID)
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Phone:</label>
+                            <div class="col-sm-9">
+                                @Html.DisplayFor(model => model.PrimaryPhone, new { @class = "form-control-plaintext" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email:</label>
+                            <div class="col-sm-9">
+                                @Html.DisplayFor(model => model.PrimaryEmail, new { @class = "form-control-plaintext" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Password:</label>
+                            <div class="col-sm-9">
+                                @Html.PasswordFor(model => model.LoginPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn" name="Command" value="Update" style="background-color: #008374; color:#f2f2f2">Save</button>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <a href="~/DoctorWork/DoctorDashBoard" class="btn" style="background-color: #008374; color:#f2f2f2">Go to DashBoard</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>

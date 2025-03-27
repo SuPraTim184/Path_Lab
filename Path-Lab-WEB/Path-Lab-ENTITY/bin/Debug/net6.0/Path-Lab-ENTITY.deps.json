@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Path-Lab-ENTITY/1.0.0": {
+        "runtime": {
+          "Path-Lab-ENTITY.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Path-Lab-ENTITY/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

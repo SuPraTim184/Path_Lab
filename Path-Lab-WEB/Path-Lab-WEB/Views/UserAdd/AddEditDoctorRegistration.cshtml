@@ -1,0 +1,305 @@
+﻿@model Path_Lab_ENTITY.eUser
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+@using (Html.BeginForm("AddEditDoctorRegistration", "UserAdd", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+       
+
+    <div class="hm-gradient">
+
+        <main>
+
+            <!--MDB Forms-->
+            <div class="container mt-4">
+
+                <!-- Grid row -->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Form register -->
+                                <form>
+                                    <h3 class="text-center pink-text font-bold py-4"><strong>Insert/Update Doctor Login Details</strong></h3>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Select Doctor Name</label>
+                                        </div>
+                                        <div class="col-sm-9">
+
+                                            @Html.DropDownListFor(model => model.EntityTypeID, new SelectList(ViewBag.DoctorDetail, "DoctorId", "DoctorName", ViewBag.DoctorDetail), "--None--", new { @class = "form-control form-control-sm", @required = "required", @id = "txtDoctorID", @onchange = "GetDoctorDetails();" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Email</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PrimaryEmail, new{@class="form-control" , @placeholder="Enter Email..." , @type="email" ,  @required = "required",@id="txtEmail",@readonly="readonly"})
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Phone</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PrimaryPhone, new{@class="form-control"  , @placeholder="Enter Phone Number..." , @type="number", @minlength="10", @maxlength="10" ,  @required = "required",@id="txtPhoneNumber", @readonly="readonly" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Password Start</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PasswordStart, new{@class="form-control"  , @placeholder="Password Start..." , @type="date", @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Password End</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PasswordExpire, new{@class="form-control"  ,@placeholder="Password End..." , @type="date", @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Full Name</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.FullName, new{@class="form-control" , @placeholder="Enter Full Name..." ,  @required = "required",@id="txtDoctorName",@readonly="readonly"})
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">User Name</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "UserName...", @required = "required", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Password</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.LoginPassword, new{@class="form-control" , @placeholder="PassWord..." , @type="Password" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />@*
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Locked</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.IsLocked, new{@class="form-control" , @placeholder="Enter PinCode..." , @type="checkbox" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />*@
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Status</label>
+                                        </div>
+                                        <div class="col-sm-9">
+
+                                            @Html.DropDownListFor(model => model.StatusId,
+                                        new List<SelectListItem>
+                                        {
+                                        new SelectListItem { Value = "1" , Text = "Active"  },
+                                        new SelectListItem { Value = "0" , Text = "In Active" },
+                                        },
+                                        "--None--",
+                                        new { @class = "form-control", @required = "required" })
+                                        </div>
+                                    </div>
+
+
+
+                                    @*              @Html.HiddenFor(model => model.ProfilePicture)
+                                <div class="form-group row">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                <a href="#" class="pop" pageTitle="@Model.ProfilePicture">
+                                @if (@Model.ProfilePicture == null || @Model.ProfilePicture == "")
+                                {
+                                <img id="img_profilepic" src='~/img/profile.png' style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black; margin-left: 140px; margin-top: 10px;" alt="No Picture">
+                                }
+                                else
+                                {
+                                <img id="img_profilepic" src='~/Profile/@Model.ProfilePicture' style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black; margin-left: 140px; margin-top: 10px;" alt="No Picture">
+                                }
+                                </a>
+                                </div>
+                                <div class="col-sm-4"></div>
+                                </div>
+
+
+
+                                <div class="row">
+                                <div class="col-sm-3">
+                                <label class="orangeForm-name37">Profile Picture</label>
+                                </div>
+                                <div class="col-sm-9">
+                                <div class="btn btn-default btn-file">
+                                <i class="fas fa-upload"></i> Upload Picture ( Max. Size 15MB)
+                                <input type="file" name="Attachments" onchange="showPic()" id="file_ProfilePic" accept=".jpg, .jpeg, .png">
+                                </div>
+                                </div>
+                                </div>
+                                *@
+
+                                    <div class="text-center py-4">
+                                        <button value="Save" name="Command" class="btn btn-success btn-outline-primary">Save Data<i class="fa fa-paper-plane-o ml-1"></i></button>
+                                    </div>
+                                </form>
+                                <!-- Form register -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+
+                <hr class="my-4">
+
+
+            </div>
+            <!--MDB Forms-->
+
+        </main>
+
+    </div>
+
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.alert))
+{
+    <script type="text/javascript">
+        alert("@ViewBag.alert");
+    </script>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function GetDoctorDetails() {
+        var id = document.getElementById("txtDoctorID").value;
+        console.log(id);
+
+        $.ajax({
+            url: "/Doctor/GetDoctorFees",
+            type: "Get",
+            data: { id: id },
+            dataType: "json",
+            traditional: true,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                // Assuming data is an object with properties matching your model properties
+                var Fees = data.Fees;
+                var Email = data.Email;
+                var PhoneNumber = data.PhoneNumber;
+                var DoctorName = data.DoctorName;
+
+
+                // Populate the form fields
+                $("#Fees").val(data.Fees);
+                $("#txtEmail").val(data.Email);
+                $("#txtPhoneNumber").val(data.PhoneNumber);
+                $("#txtDoctorName").val(data.DoctorName);
+                $("#UserName").val(data.Email);
+            }
+        });
+    }
+</script>
+ 
+
+@* <script>
+    $(document).ready(function () {
+        $("#txtDoctorID", function () {
+            getEmail();
+        });
+
+        function getEmail() {
+            var Id = $("#txtDoctorID").val();
+            $.ajax({
+                url: "/UserAdd/DoctorEmail",
+                type: "GET",
+                data: { Id: Id },
+                dataType: "json",
+                success: function (data) {
+                        $("#txtEmail").val(data);
+                },
+                error: function () {
+                    console.log("Error occurred while fetching employee email.");
+                }
+            });
+        }
+        function getDoctorName() {
+            var Id = $("#txtDoctorID").val();
+            $.ajax({
+                url: "/UserAdd/DoctorName",
+                type: "GET",
+                data: { Id: Id },
+                dataType: "json",
+                success: function (data) {
+                    $("#txtDoctorName").val(data);
+                },
+                error: function () {
+                    console.log("Error occurred while fetching employee email.");
+                }
+            });
+        }
+        function getPhoneNumber() {
+            var Id = $("#txtDoctorID").val();
+            $.ajax({
+                url: "/UserAdd/DoctorPhone",
+                type: "GET",
+                data: { Id: Id },
+                dataType: "json",
+                success: function (data) {
+                    $("#txtPhoneNumber").val(data);
+                },
+                error: function () {
+                    console.log("Error occurred while fetching employee email.");
+                }
+            });
+        }
+    });
+</script>  *@

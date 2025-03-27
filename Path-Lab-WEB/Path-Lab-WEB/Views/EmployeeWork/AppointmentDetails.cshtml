@@ -1,0 +1,534 @@
+﻿@using System.Diagnostics;
+@* @model Path_Lab_ENTITY.eAppoinmentBooking; *@
+@{
+    Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+    ViewData["Title"] = "AppointmentDetails";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+
+    .content {
+        width: 100%;
+        max-width: 512px;
+        padding-block: 48px;
+        border-radius: 8px;
+        background-color: #242423;
+    }
+
+    keyframes marquee {
+        /*       from:
+
+                                                                                                                                    {
+                                                                                                                                        transform: translateX(0);
+                                                                                                                                    }
+
+                                                                                                                                    to {
+                                                                                                                                        transform: translateX(-100%);
+                                                                                                                                    }*/
+    }
+
+    .marquee {
+        position: relative;
+        background-color: #f5cb5c;
+        padding-block: 8px;
+        overflow: hidden;
+    }
+
+        .marquee:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+    .marquee__inner {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .marquee__part {
+        flex-shrink: 0;
+        padding-inline: 2px;
+        animation-name: marquee;
+        animation-duration: 4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .border-left-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .border-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+        border-right: 1px solid #008374; /* Customize the color as needed */
+        border-top: 1px solid #008374; /* Customize the color as needed */
+        border-bottom: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .fade-out {
+        transition: opacity 1s ease-out, height 0.3s ease-out;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+            .invoice-box table td {
+                padding: 5px;
+                vertical-align: top;
+            }
+
+            .invoice-box table tr td:nth-child(2) {
+                text-align: right;
+            }
+
+            .invoice-box table tr.top table td {
+                padding-bottom: 20px;
+            }
+
+                .invoice-box table tr.top table td.title {
+                    font-size: 45px;
+                    line-height: 45px;
+                    color: #333;
+                }
+
+            .invoice-box table tr.information table td {
+                padding-bottom: 40px;
+            }
+
+            .invoice-box table tr.heading td {
+                background: #eee;
+                border-bottom: 1px solid #ddd;
+                font-weight: bold;
+            }
+
+            .invoice-box table tr.item td {
+                border-bottom: 1px solid #eee;
+            }
+
+            .invoice-box table tr.item.last td {
+                border-bottom: none;
+            }
+
+            .invoice-box table tr.total td:nth-child(3),
+            .invoice-box table tr.total td:nth-child(4) {
+                border-top: 2px solid #eee;
+                font-weight: bold;
+            }
+
+    .note {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+<section>
+    <div class="marquee">
+        <marquee>
+            <ul class="marquee__inner">
+                <li class="marquee__part">
+                    Book Doctor Appointment •
+                </li>
+                <li class="marquee__part">
+                    Your Lab •
+                </li>
+                <li class="marquee__part">
+                    Always With You •
+                </li>
+                <li class="marquee__part">
+                    For Your Better Health •
+                </li>
+            </ul>
+        </marquee>
+    </div>
+</section>
+
+@if (ViewBag.LoginAlert != null)
+{
+    <div class="container-fluid">
+        <div id="alertMessage" class="alert alert-info alert-dismissible fade show" role="alert">
+            <center>@ViewBag.LoginAlert</center>
+        </div>
+    </div>
+}
+
+<div class="container-fluid">    
+    @if (Model.PaymentDue == "Due")
+    {
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <center>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#AddTranscation">Add Transcation</button>
+                </center>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    }
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="section-header">
+                <h2>Appointment Bill</h2>
+            </div>
+
+            <div class="invoice-box" id="InvoiceDownloads">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="top">
+                        <td class="title">
+                            <h2>Your Lab</h2>
+                            <p>Railghumti, Near S.P Bungalow, Cooch Behar</p>
+                            <p>Contact: 8927483306</p>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-family:'Times New Roman', Times, serif; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-weight:bold; text-align:center; font-size:16px;">
+                            INVOICE
+                        </td>
+                    </tr>
+                    <tr class="information">
+                        <td colspan="2">
+                            <table>
+                                <tr>
+                                    <td>
+                                        Bill To: @Context.Request.Cookies["UFullName"].ToString()<br>
+                                        Patient Name: @Model.PatientName
+                                    </td>
+                                    <td colspan="2">
+                                        Booking ID #: @Model.BookingID<br>
+                                        Booking Date: @Model.DateEntered.ToString("dd-MM-yyyy")<br>
+                                        Payment: @Model.PaymentDue
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td>Doctor Name : </td>
+                        <td>@Model.DoctorName</td>
+                    </tr>
+                    <tr class="heading">
+                        <td>Appointment Date : </td>
+                        <td> @Model.BookingDate.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr class="heading">
+                        <td>Fees</td>
+                        <td>@Model.Fees</td>
+                    </tr>
+                </table>
+                <p class="note">Total Payable Amount: @Model.Fees</p>
+                <p class="note">Total Payment Amount: @Model.TotalPayment </p>
+                @if ((decimal?)Model.DueAmount == 0.00m)
+                {
+                    <p class="note"> Payment Successfully</p>
+                }
+                else
+                {
+                    <p class="note">Total Due Amount: @Model.DueAmount</p>
+                }
+
+                <p class="note">THANK YOU ,<br>Your smile is best return for us.</p>
+            </div>
+
+            <br>
+            <br>
+            <center><button onclick="generatePDF()" class="btn btn-outline-success">Download Bill</button></center>
+            <br>
+            <br>
+        </div>
+
+        <div class="col-sm-6">
+
+            <div class="section-header">
+                <h2>Appointment Prescription</h2>
+            </div>
+
+            <div class="invoice-box" id="PrescriptionDownloads">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="top">
+                        <td class="title">
+                            <h2>Your Lab</h2>
+                            <p>Railghumti, Near S.P Bungalow, Cooch Behar</p>
+                            <p>Contact: 8927483306</p>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-family:'Times New Roman', Times, serif; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-weight:bold; text-align:center; font-size:16px;">
+                            Prescription
+                        </td>
+                    </tr>
+                    <tr class="information">
+                        <td colspan="2">
+                            <table>
+                                <tr>
+                                    <td>
+                                        Patient Name: @Model.PatientName<br>
+                                        Patient Date of Birth: @Model.PatientDOB.ToString("dd/MM/yyyy")<br>
+                                    </td>
+                                    <td colspan="2">
+                                        Booking ID #: @Model.BookingID<br>
+                                        Booking Date: @Model.DateEntered.ToString("dd/MM/yyyy")<br>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-family:'Times New Roman', Times, serif; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-weight:bold; text-align:center; font-size:16px;">
+                            General Information
+                        </td>
+                    </tr>
+                    <tr class="information">
+                        <td colspan="2">
+                            <table>
+                                <tr>
+                                    <td>
+                                        Height : @Model.PatientHeight<br>
+                                        Weight : @Model.PatientWeight<br>
+                                    </td>
+                                    <td colspan="2">
+                                        BP Upper : @Model.PatientBPHigh<br>
+                                        BP Lower : @Model.PatientBPLow<br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Description : @Model.Description</td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-family:'Times New Roman', Times, serif; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-weight:bold; text-align:center; font-size:16px;">
+                            Medicine Information
+                        </td>
+                    </tr>
+                    <br />
+                    <tr class="heading">
+                        <td>Medicine Name : </td>
+                        <td>Using</td>
+                    </tr>
+                    @{
+                        int j = 0;
+                        foreach (var i in Model.MedicineList)
+                        {
+                            <tr>
+                                <td>@Model.MedicineList[j].MedicineName</td>
+                                <td>@Model.MedicineList[j].MedicineUsing</td>
+                            </tr>
+                            j++;
+                        }
+                    }
+
+                </table>
+                <p class="note">THANK YOU ,<br>Your smile is best return for us.</p>
+            </div>
+            <br>
+            <br>
+            <center><button onclick="PrescriptionPDF()" class="btn btn-outline-success">Download Prescription</button></center>
+            <br>
+            <br>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddTranscation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Test</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("AppointmentDetails", "EmployeeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Pay Amount :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("PayAmount", null, new { @class = "form-control", @placeholder = "Pay Amount..." })
+                            @Html.Hidden("AppointmentBookingID", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Total Amount :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("PaymentAmount", null, new { @class = "form-control", @placeholder = "Payment Amount...", @ReadOnly = "Readonly" })
+
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Due Amount :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("DueAmount", null, new { @class = "form-control", @placeholder = "Due Amount...", @ReadOnly = "Readonly" })
+
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Booking ID :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("EntityTypeID", null, new { @class = "form-control", @placeholder = "Booking ID...", @ReadOnly = "Readonly" })
+
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <center>
+                        <button type="submit" class="btn" value="SaveBooking" name="Command" style="background-color:#008374;color:#f2f2f2;">Submit Booking</button>
+                    </center>
+                    <br>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to validate PayAmount against DueAmount
+    function validatePayAmount() {
+        var dueAmount = parseFloat(document.getElementById('DueAmount').value) || 0;
+        var payAmount = parseFloat(document.getElementById('PayAmount').value) || 0;
+
+        if (payAmount > dueAmount) {
+            alert("Pay Amount cannot exceed Due Amount.");
+            document.getElementById('PayAmount').value = null; // Optionally reset value
+        }
+    }
+
+    // Add event listener to PayAmount input field
+    document.getElementById('PayAmount').addEventListener('input', validatePayAmount);
+</script>
+
+<script>
+    var BookingID = '@Model.BookingID';
+    console.log(BookingID);
+    document.getElementById("EntityTypeID").value = BookingID;
+
+    var Fees = '@Model.Fees';
+    console.log(Fees);
+    document.getElementById("DueAmount").value = Fees;
+
+    var DueAmount = '@Model.DueAmount';
+    console.log(DueAmount);
+    document.getElementById("PaymentAmount").value = DueAmount;
+
+</script>
+
+<script>
+    async function PrescriptionPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'pt', 'a4');
+        const element = document.getElementById('PrescriptionDownloads');
+
+        await html2canvas(element).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const imgProps = doc.getImageProperties(imgData);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            doc.save('Prescription.pdf');
+        });
+    }
+</script>
+
+<script>
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'pt', 'a4');
+        const element = document.getElementById('InvoiceDownloads');
+
+        await html2canvas(element).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const imgProps = doc.getImageProperties(imgData);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            doc.save('invoice.pdf');
+        });
+    }
+</script>
+
+
+@* <script>
+    async function generatePDF() {
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4');
+            const element = document.getElementById('InvoiceDownloads');
+
+            // Use html2canvas to convert the element into an image
+            const canvas = await html2canvas(element);
+            const imgData = canvas.toDataURL('image/png');
+            const imgProps = doc.getImageProperties(imgData);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            // Add the image to the PDF and save it
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            doc.save('invoice.pdf');
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            alert("Failed to generate Invoice PDF. Please try again.");
+        }
+    }
+
+    async function PrescriptionPDF() {
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4');
+            const element = document.getElementById('PrescriptionDownloads');
+
+            // Use html2canvas to convert the element into an image
+            const canvas = await html2canvas(element);
+            const imgData = canvas.toDataURL('image/png');
+            const imgProps = doc.getImageProperties(imgData);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            // Add the image to the PDF and save it
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            doc.save('Prescription.pdf');
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            alert("Failed to generate Prescription PDF. Please try again.");
+        }
+    }
+</script> *@

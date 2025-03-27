@@ -1,0 +1,145 @@
+﻿@model Path_Lab_ENTITY.eDoctor
+@{
+    ViewData["Title"] = "ViewDoctor";
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+@using (Html.BeginForm("ViewDoctor", "Doctor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid">
+
+        <center>
+            <div class="card" style="width: 35rem;">
+                <center>
+                    <img class="card-img-top </center>" src="~/Profile/@Model.ImagePath" alt="Card image cap" style="height:50%; width:50%">
+                </center>
+                <div class="card-body">
+                    <h5 class="card-title"><b>Doctor Profile</b></h5>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Name</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.DoctorName)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Specialization</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Specialization)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Gender</label>
+                        </div>
+                        <div class="col-sm-9">
+
+                            @Html.DisplayFor(model => model.Gender)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Email</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Email)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Phone Number</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.PhoneNumber)
+                        </div>
+                    </div>
+                    <br />
+                    @{
+                        string formattedDate = Model.JoiningDate?.ToString("dd/MM/yyyy");
+                    }
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Date Of Joining</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model =>formattedDate)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Address</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Address)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">PinCode</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.PinCode)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Qualification</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Qualification)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Fees</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Fees)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Available Chambers</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Availablechambers)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Available or Not</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @if(@Model.IsAvailable == true)
+                            {
+                            <center><h2>Doctor is Available</h2></center>
+                            }
+                            else
+                            {
+                                    <center><h2>Doctor is Not Available</h2></center>
+                            }
+                        </div>
+                    </div>
+
+
+                    <hr>
+                    <a href="~/Doctor/AddEditDoctor/0/0/@Model.DoctorId" class="btn btn-primary">Edit</a> | <a href="~/Doctor/ManageDoctor" class="btn btn-primary">Manage Doctor</a>
+                </div>
+            </div>
+        </center>
+    </div>
+}

@@ -1,0 +1,451 @@
+﻿@using System.Diagnostics;
+@model Path_Lab_ENTITY.eTestBooking;
+@{
+    ViewBag.Title = "Book Appointment";
+    Layout = "~/Views/Shared/UserLayoutOthers.cshtml";
+}
+
+
+
+
+<style>
+
+    .content {
+        width: 100%;
+        max-width: 512px;
+        padding-block: 48px;
+        border-radius: 8px;
+        background-color: #242423;
+    }
+
+    keyframes marquee {
+        /*       from:
+
+                                                {
+                                                    transform: translateX(0);
+                                                }
+
+                                                to {
+                                                    transform: translateX(-100%);
+                                                }*/
+    }
+
+    .marquee {
+        position: relative;
+        background-color: #f5cb5c;
+        padding-block: 8px;
+        overflow: hidden;
+    }
+
+        .marquee:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+    .marquee__inner {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .marquee__part {
+        flex-shrink: 0;
+        padding-inline: 2px;
+        animation-name: marquee;
+        animation-duration: 4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .border-right-custom {
+        border-right: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .border-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+        border-right: 1px solid #008374; /* Customize the color as needed */
+        border-top: 1px solid #008374; /* Customize the color as needed */
+        border-bottom: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .fade-out {
+        transition: opacity 1s ease-out, height 0.3s ease-out;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function GetTestFees(element) {
+        var id = $(element).val(); // Get the selected TestId from the dropdown
+        console.log(id);
+
+        $.ajax({
+            url: "/Test/GetTestPrice",
+            type: "GET",
+            data: { id: id },
+            dataType: "json",
+            success: function (data) {
+                // Assuming data is an object with properties matching your model properties
+                var TestPrice = data.TestPrice;
+
+                // Find the corresponding Price input field and set its value
+                $(element).closest('tr').find(".Price").val(TestPrice);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#addNew").click(function (e) {
+            e.preventDefault();
+            var $tableBody = $("#ProposedSecE tbody");
+            var $trLast = $tableBody.find("tr:last");
+            var $trNew = $trLast.clone();
+
+            // Get the current row index and increment for the new row
+            var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+            var newSuffix = parseInt(suffix) + 1;
+
+            $.each($trNew.find(':input'), function () {
+                var oldN = $(this).attr('name');
+                var newN = oldN.replace(/\d+/, newSuffix);
+                $(this).attr('name', newN);
+
+                var type = $(this).attr('type');
+                // if (type.toLowerCase() == "text") {
+                //     $(this).val('');
+                // } else if (type.toLowerCase() == "checkbox") {
+                //     $(this).prop("checked", false);
+                // }
+            });
+
+            $trLast.after($trNew);
+            $trNew.find(':text').val('');
+        });
+
+        // Remove row functionality
+        $(document).on('click', '.removeRow', function (e) {
+            e.preventDefault();
+            $(this).closest('tr').remove();
+        });
+    });
+</script>
+
+
+
+<section>
+    <div class="marquee">
+        <marquee>
+            <ul class="marquee__inner">
+                <li class="marquee__part">
+                    Book Test Appointment •
+                </li>
+                <li class="marquee__part">
+                    Your Lab •
+                </li>
+                <li class="marquee__part">
+                    Always With You •
+                </li>
+                <li class="marquee__part">
+                    For Your Better Health •
+                </li>
+            </ul>
+        </marquee>
+    </div>
+</section>
+
+
+@if (ViewBag.LoginAlert != null)
+{
+    <div class="container-fluid">
+        <div id="alertMessage" class="alert alert-info alert-dismissible fade show" role="alert">
+            <center>@ViewBag.LoginAlert</center>
+        </div>
+    </div>
+}
+
+
+<section>
+
+
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div class="border-custom">
+                <br>
+                <div class="section-header">
+                    <h2>Submit Form to Book Test</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="card card-info" style="height:80%; background-color:#008374">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size:80%;font-weight: bold;color:white">Booking Information</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <a id="addNew" @* onclick="Add()" *@ class="btn btn-outline-success">
+                            <span class="material-icons">
+                                @* <button type="button" class="btn btn-outline-success"> *@<i class="fa-solid fa-plus"></i> Add New Test@* </button> *@
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a type="button">
+                            <span class="material-icons">
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#AddPatient"><i class="fa-solid fa-plus"></i> Add New Patient</button>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <br />
+                @using (Html.BeginForm("TestBooking", "PathLab", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="box-body small-margin" style="padding-left:15px;padding-right:15px;">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row p-2 text-center">
+                                    <label class="col-sm-4 control-label">Select Patient :</label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(model => model.PatientId, new SelectList(ViewBag.Patient, "PatientId", "PatientName", ViewBag.Patient),
+                                                 "--Select Patient--", new { @class = "form-control ", @id = "PatientId", @required="required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row p-2 text-center">
+                                    <label class="col-sm-4 control-label">Select Date & Time :</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.BookingDate, new { @class = "form-control ", @id = "BookingDate", Type = "datetime-local", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row p-2 text-center">
+                                    <label class="col-sm-4 control-label">Payment Type :</label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(model => model.PaymentType, new List<SelectListItem>
+                                    {
+                                    new SelectListItem { Value = "Cash" , Text = "Cash"  },
+                                    },
+                                                 "--None--", new { @class = "form-control", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <table id="ProposedSecE" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;">Test Name</th>
+                                    <th style="text-align:center;">Price</th>
+                                    <th style="text-align:center;">Actions</th> <!-- New column for actions -->
+                                </tr>
+                            </thead>
+                            <tbody id="Tbdy_SetbackProposed">
+                                @{
+                                    int j = 0;
+                                    foreach (var i in Model.TestList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DropDownListFor(model => model.TestList[j].TestId, new SelectList(ViewBag.TestDetail, "TestId", "Name", ViewBag.TestDetail),
+                                                     "--Select Test--", new { @class = "form-control", @onchange = "GetTestFees(this);" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.TestList[j].TestPrice, new { @class = "form-control Price", @id = "Price", @ReadOnly = "readonly" })
+                                            </td>
+                                            <td>
+                                                <!-- New column for actions -->
+                                                <center>
+                                                    <a href="#" class="removeRow">
+                                                        <span class="material-icons"> <i class="fa-solid fa-trash"></i> </span>
+                                                    </a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        j++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <br>
+                        <center>
+                            <button type="submit" class="btn" value="SaveBooking" name="Command" style="background-color:#008374;color:#f2f2f2;">Submit Booking</button>
+                        </center>
+                        <br>
+                    </div>
+                }
+
+
+
+                <br>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+
+    </div>
+
+
+
+
+    <div class="modal fade" id="AddPatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Patient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                @using (Html.BeginForm("TestBooking", "PathLab", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row p-2 text-center">
+                                    <label class="col-sm-4 control-label">Patient Name :</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.PatientName, new { @class = "form-control", @placeholder = "Patient Name..." })
+                                    </div>
+                                </div>
+                                <div class="row p-2 text-center">
+                                    <label class="col-sm-4 control-label">Date Of Birth :</label>
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(model => model.PatientDOB, new { @class = "form-control", @type = "date" })
+                                    </div>
+                                </div>
+                                <div class="row p-2 text-center">
+                                    <label class="col-sm-4 control-label">Gender :</label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(model => model.PatientGender, new List<SelectListItem>
+                                    {
+                                    new SelectListItem { Value = "Male" , Text = "Male"  },
+                                    new SelectListItem { Value = "Female" , Text = "Female" },
+                                    new SelectListItem { Value = "Others" , Text = "Others" },
+                                    },
+                                                 "--None--", new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-success" name="Command" value="SavePatient">Submit</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+
+@*<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"
+        integrity="sha512-eSeh0V+8U3qoxFnK3KgBsM69hrMOGMBy3CNxq/T4BArsSQJfKVsKb5joMqIPrNMjRQSTl4xG8oJRpgU2o9I7HQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css"
+      integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+@*<script>
+    $(document).ready(function () {
+        $(".ch").chosen({
+            width: "95%",
+            no_results_text: "Oops, nothing found!",
+            allow_single_deselect: true,
+        });
+    });
+</script>*@
+
+@*<script>
+    $(document).on('click', '.removeRow', function (e) {
+        e.preventDefault();
+        $(this).closest('tr').remove();
+    });
+
+    $("#addNewProposedSecE").click(function (e) {
+        e.preventDefault();
+        var rowCount = $("#Tbdy_SetbackProposed tr").length;
+        let rowNumber = rowCount;
+        let $tableBody = $("#ProposedSecE");
+        let $trLast = $tableBody.find("tr:last");
+        let $trNew = $trLast.clone();
+
+        var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+        $.each($trNew.find(`.SetbackProposed`), function (i, val) {
+            //this is for id
+            var oldId = $(this).attr('id');
+            var newId = oldId.replace(suffix, (parseInt(suffix) + 1));
+            $(this).attr('id', newId);
+
+            //this is for class
+            var oldN = $(this).attr('name');
+            var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+            $(this).attr('name', newN);
+        });
+        $trLast.after($trNew);
+        $trNew.find(':text').val('');
+        $trNew.find(':input:first').val('');
+        $trNew.find("#output_SetbackProposed").text(`Building#${rowNumber + 1}`);
+    });
+</script>
+*@
+
+<script>
+    $(document).on('click', '.removeRow', function (e) {
+        e.preventDefault();
+        $(this).closest('tr').remove();
+    });
+
+    $("#addNewProposedSecE").click(function (e) {
+        e.preventDefault();
+        var rowCount = $("#Tbdy_SetbackProposed tr").length;
+        let rowNumber = rowCount;
+        let $tableBody = $("#ProposedSecE");
+        let $trLast = $tableBody.find("tr:last");
+        let $trNew = $trLast.clone();
+
+        var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+        $.each($trNew.find(`.SetbackProposed`), function (i, val) {
+            // this is for id
+            var oldId = $(this).attr('id');
+            var newId = oldId.replace(suffix, (parseInt(suffix) + 1));
+            $(this).attr('id', newId);
+
+            // this is for class
+            var oldN = $(this).attr('name');
+            var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+            $(this).attr('name', newN);
+        });
+        $trLast.after($trNew);
+        $trNew.find(':text').val('');
+        $trNew.find(':input:first').val('');
+        $trNew.find("#output_SetbackProposed").text(`Building#${rowNumber + 1}`);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#alertMessage').addClass('fade-out');
+            setTimeout(function () {
+                $('#alertMessage').alert('close');
+            }, 1000); // Time to wait for the fade-out transition to complete
+        }, 10000); // Time to wait before starting fade-out
+    });
+</script>

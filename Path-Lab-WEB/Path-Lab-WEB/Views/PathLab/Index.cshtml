@@ -1,0 +1,563 @@
+﻿@{
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<style>
+    .containers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+        .containers .buttons {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .containers a {
+            padding: 15px 20px;
+            /*font: 13px $button-font;  Assuming $button-font is defined elsewhere in your code */
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            margin: 1em;
+        }
+
+            .containers a:hover {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20), 0 6px 20px 0 rgba(0, 0, 0, 0.20);
+            }
+
+    media (min-width: 417px) and (max-width: 567px) {
+        .containers a
+
+    {
+        padding: 15px 30px;
+        /*font: 16px $button-font;*/
+    }
+
+    }
+
+    media (min-width: 568px) {
+        .containers a
+
+    {
+        padding: 15px 50px;
+        /*font: 20px $button-font;*/
+    }
+
+    }
+
+    .button3 {
+        color: green;
+        background: linear-gradient(to right, #add8e6, #90ee90); /* light blue to light green gradient */
+        border-radius: 8px;
+        transition: 0.2s ease-in-out;
+        display: inline-block; /* Ensures that the button doesn't take up the full width */
+        text-align: center; /* Centers the text horizontally */
+        line-height: 1; /* Ensures the text is vertically centered */
+        cursor: pointer;
+        overflow: hidden; /* Hides the overflow from the border-radius change on hover */
+    }
+
+        .button3:hover {
+            border-radius: 30px;
+        }
+</style>
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero">
+    <div class="container position-relative">
+        <div class="row gy-5" data-aos="fade-in">
+            <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
+                <h2>Welcome to <span>Your Lab</span></h2>
+                <p>- Pioneering Excellence in Diagnostic Precision!.</p>
+                <div class="d-flex justify-content-center justify-content-lg-start">
+                    <a href="#about" class="btn-get-started">Get Started</a>
+                    <a href="#" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2">
+                <img src="~/assets/img/Logo.png" style="width:50%;height:auto" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+            </div>
+        </div>
+    </div>
+
+    <div class="icon-boxes position-relative">
+        <div class="container position-relative">
+            <div class="row gy-4 mt-5">
+
+                <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-box">
+                        <div class="icon"><i class="fa-solid fa-user-doctor"></i></div>
+                        <h4 class="title"><a href="" class="stretched-link">Book Health Check</a></h4>
+                    </div>
+                </div><!--End Icon Box -->
+
+                <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-box">
+                        <div class="icon"><i class="fa-solid fa-vials"></i></div>
+                        <h4 class="title"><a href="" class="stretched-link">Book Lab Test</a></h4>
+                    </div>
+                </div><!--End Icon Box -->
+
+                <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-box">
+                        <div class="icon"><i class="fa-regular fa-calendar"></i></div>
+                        <h4 class="title"><a href="" class="stretched-link">Book Appointment</a></h4>
+                    </div>
+                </div><!--End Icon Box -->
+
+                <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="icon-box">
+                        <div class="icon"><i class="fa-solid fa-notes-medical"></i></div>
+                        <h4 class="title"><a href="" class="stretched-link">Health Record</a></h4>
+                    </div>
+                </div><!--End Icon Box -->
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End Hero Section -->
+
+<main id="main">
+
+    <section id="#" style="background-image: url('/assets/img/health2.jpg'); background-size: cover; background-attachment: fixed;">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-header">
+                <h2>Booking Button</h2>
+                <p>To Book Doctor's Appointment and Test Booking !</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="containers">
+                        <div class="buttons">
+                            <a href="~/PathLab/AppointmentBooking" class="button3" rel="noopener">Book Doctor's Appointment</a>
+                        </div>
+                    </div>
+                </div>
+                @*target="_blank"*@
+                <div class="col-sm-6">
+                    <div class="containers">
+                        <div class="buttons">
+                            <a href="~/PathLab/TestBooking" class="button3"  rel="noopener">Book Test</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-header">
+                <h2>About Us</h2>
+                <p>Welcome to "Your Lab" - Pioneering Excellence in Diagnostic Precision!</p>
+            </div>
+
+            <div class="row gy-4">
+                <div class="col-lg-6">
+                    <h3>We are for You</h3>
+                    <img src="~/assets/img/health.jpg" class="img-fluid rounded-4 mb-4" alt="">
+                    <p>At "Your Lab," we redefine the standards of diagnostic excellence through cutting-edge technology, unwavering dedication, and a commitment to accuracy. Our state-of-the-art pathology laboratory is designed to cater to all your diagnostic needs with sophistication and precision.</p>
+                    <p>Experience the future of pathology at "Your Lab" – because your health deserves nothing less than excellence!.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="content ps-0 ps-lg-5">
+                        <p class="fst-italic">
+                            Whether you are a healthcare provider seeking reliable diagnostic services or an individual on a path to better health, "Your Lab" is your trusted partner. Explore the world of precision diagnostics with us, where expertise meets empathy, and science is harnessed for your well-being.
+                        </p>
+                        <ul>
+                            <li><i class="bi bi-check-circle-fill"></i> <b>Anatomical Pathology:</b> Comprehensive examination of tissues for accurate diagnosis.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <b>Clinical Pathology:</b> Analyzing bodily fluids and tissues to detect diseases and monitor overall health.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <b>Molecular Diagnostics:</b> Identifying genetic and molecular markers for precise disease diagnosis and treatment planning.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <b>Immunohistochemistry:</b> Utilizing antibodies to visualize specific proteins in tissues for enhanced diagnostic insights.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <b>Microbiology:</b> Identifying infectious agents to guide effective treatment strategies.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <b>Cytogenetics:</b> Studying chromosomal patterns for a deeper understanding of genetic disorders.</li>
+                        </ul>
+                        <p>
+                            Partner with "Your Lab" for a Healthier Tomorrow!
+                        </p>
+
+                        @*<div class="position-relative mt-4">
+                        <img src="assets/img/about-2.jpg" class="img-fluid rounded-4" alt="">
+                        <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End About Us Section -->
+    <!-- ======= Call To Action Section ======= -->
+    <section id="call-to-action" style="background-image: url('/assets/img/health2.jpg'); background-size: cover; background-attachment: fixed;">
+        @*class="call-to-action"*@
+        <div class="container text-center" data-aos="zoom-out">
+            @*<a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>*@
+            <h3>Call To Action</h3>
+            <p> Welcome to "Your Lab" - Pioneering Excellence in Diagnostic Precision!.</p>
+            <button type="button" class="btn btn-success"><a class="text-white" href="#">Call To Action</a></button>
+        </div>
+    </section><!-- End Call To Action Section -->
+    <!-- ======= Our Services Section ======= -->
+    <section id="services" class="services sections-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>"Precision in Diagnostics, Excellence in Care: Your Health, Our Priority."</p>
+            </div>
+
+            <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item  position-relative">
+                        <div class="icon">
+                            <i class="bi bi-activity"></i>
+                        </div>
+                        <h3>Comprehensive Diagnostics</h3>
+                        <p>
+                            <ul>
+                                <li> State-of-the-art laboratory tests covering a spectrum of health parameters.</li>
+                                <li> Cutting-edge technology for accurate and reliable results.</li>
+                            </ul>
+                        </p>
+                        <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div><!-- End Service Item -->
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item position-relative">
+                        <div class="icon">
+                            <i class="fa-solid fa-vial-virus"></i>
+                        </div>
+                        <h3>Effortless Booking:</h3>
+                        <p>
+                            <ul>
+                                <li> Instant online appointment scheduling for tests and doctor consultations.</li>
+                                <li> User-friendly platform for a hassle-free experience.</li>
+                            </ul>
+                        </p>
+                        <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div><!-- End Service Item -->
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item position-relative">
+                        <div class="icon">
+                            <i class="fa-solid fa-notes-medical"></i>
+                        </div>
+                        <h3>Expert Consultations:</h3>
+                        <p>
+                            <ul>
+                                <li> Access to a network of experienced doctors for personalized advice.</li>
+                                <li> Telemedicine services for convenient virtual consultations.</li>
+                            </ul>
+                        </p>
+                        <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div><!-- End Service Item -->
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item position-relative">
+                        <div class="icon">
+                            <i class="bi bi-bounding-box-circles"></i>
+                        </div>
+                        <h3>Swift Reporting:</h3>
+                        <p>
+                            <ul>
+                                <li> Timely delivery of test reports through secure online channels.</li>
+                                <li> Quick turnaround time for urgent cases.</li>
+                            </ul>
+                        </p>
+                        <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div><!-- End Service Item -->
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item position-relative">
+                        <div class="icon">
+                            <i class="fa-solid fa-business-time"></i>
+                        </div>
+                        <h3>Health Reminders:</h3>
+                        <p>
+                            <ul>
+                                <li> Automated reminders for upcoming tests and appointments.</li>
+                                <li> Proactive notifications for preventive health check-ups.</li>
+                            </ul>
+                        </p>
+                        <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div><!-- End Service Item -->
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item position-relative">
+                        <div class="icon">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3>Customer Care Commitment:</h3>
+                        <p>
+                            <ul>
+                                <li> Dedicated customer support for any inquiries or assistance.</li>
+                                <li> Patient-centric approach, ensuring comfort and convenience.</li>
+                            </ul>
+                        </p>
+                        <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div><!-- End Service Item -->
+
+            </div>
+
+        </div>
+    </section><!-- End Our Services Section -->
+    <!-- ======= Testimonials Section ======= -->
+    <section id="Doctor" class="testimonials">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-header">
+                <h2>Our Doctors</h2>
+                <p>
+                    "Where Expertise Meets Empathy: Healing Hands, Trusted Results."
+                </p>
+            </div>
+
+            <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+
+                    @foreach (var DoctorDetail in ViewBag.DoctorDetail)
+                    {
+                        <div class="swiper-slide">
+                            @*<div class="testimonial-wrap">*@
+                            <div class="testimonial-item">
+                                <div class="d-flex align-items-center">
+
+                                    @if (@DoctorDetail.ImagePath == null || @DoctorDetail.ImagePath == "")
+                                    {
+                                        <img src="~/img/profile.png" class="testimonial-img flex-shrink-0" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Profile/@DoctorDetail.ImagePath" class="testimonial-img flex-shrink-0" alt="">
+                                    }
+
+                                    <div>
+                                        <h3>@DoctorDetail.DoctorName</h3>
+                                        <h4>@DoctorDetail.Specialization</h4>
+                                        <h4>@DoctorDetail.Qualification</h4>
+                                        <div class="stars">
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*</div>*@
+                        </div>
+                        <!-- End swiper slide -->
+                    }
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+
+        </div>
+    </section><!-- End Testimonials Section -->
+
+    <section id="faq" class="faq">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-4">
+                    <div class="content px-xl-5">
+                        <h3>Frequently Asked <strong>Questions</strong></h3>
+                        <p>
+                            Certainly! Here are some frequently asked questions (FAQs) related to our pathology labs, along with short notes:
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+
+                    <div class="accordion accordion-flush" id="faqlist" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                                    <span class="num">1.</span>
+                                    Can I eat or drink before a pathology test?
+                                </button>
+                            </h3>
+                            <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    For certain tests, fasting may be required. It's essential to follow any pre-test instructions provided by your healthcare provider or the lab.
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                                    <span class="num">2.</span>
+                                    Do I need an appointment for lab tests?
+                                </button>
+                            </h3>
+                            <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    Many pathology labs accept both walk-ins and appointments. However, it's advisable to check with the specific lab for their policy.
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                                    <span class="num">3.</span>
+                                    Can I request a copy of my test results?
+                                </button>
+                            </h3>
+                            <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    Yes, you can usually request a copy of your test results from your healthcare provider or the pathology lab. Privacy regulations may apply.
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-4">
+                                    <span class="num">4.</span>
+                                    How can I access my past test results?
+                                </button>
+                            </h3>
+                            <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    Your past test results are available through our secure patient portal. Log in using your credentials to view and download your complete medical history.
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-5">
+                                    <span class="num">5.</span>
+                                    How can I schedule an appointment?
+                                </button>
+                            </h3>
+                            <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    Booking an appointment is easy! Simply visit our website and use the online appointment scheduling feature. You can also call our dedicated helpline for assistance.
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Frequently Asked Questions Section -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-header">
+                <h2>Contact</h2>
+                <p>Post Your Question , We Contact with You</p>
+            </div>
+
+            <div class="row gx-lg-0 gy-4">
+
+                <div class="col-lg-4 p-3">
+
+                    <div class="info-container d-flex flex-column align-items-center justify-content-center">
+                        <div class="info-item d-flex">
+                            <i class="bi bi-geo-alt flex-shrink-0"></i>
+                            <div>
+                                <h4>Location:</h4>
+                                <p>Cooch Behar , West Bengal , Pin : 736101</p>
+                            </div>
+                        </div><!-- End Info Item -->
+
+                        <div class="info-item d-flex">
+                            <i class="bi bi-envelope flex-shrink-0"></i>
+                            <div>
+                                <h4>Email:</h4>
+                                <p>yourlabsample@gmail.com</p>
+                            </div>
+                        </div><!-- End Info Item -->
+
+                        <div class="info-item d-flex">
+                            <i class="bi bi-phone flex-shrink-0"></i>
+                            <div>
+                                <h4>Call:</h4>
+                                <p>+91-9090909090</p>
+                            </div>
+                        </div><!-- End Info Item -->
+
+                        <div class="info-item d-flex">
+                            <i class="bi bi-clock flex-shrink-0"></i>
+                            <div>
+                                <h4>Open Hours:</h4>
+                                <p>Mon-Sat: 11AM - 23PM</p>
+                            </div>
+                        </div><!-- End Info Item -->
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8 p-3">
+                    @using (Html.BeginForm("Index", "PathLab", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        @if (ViewBag.alert != null)
+                        {
+                            <script>
+                                alert('@ViewBag.alert');
+                            </script>
+                        }                        
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                <input type="text" name="ContactName" class="form-control" id="ContactName" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                <input type="email" class="form-control" name="ContactEmail" id="ContactEmail" placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                            <input type="text" class="form-control" name="ContactSubject" id="ContactSubject" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <textarea class="form-control" name="ContactMessage" rows="7" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="my-3">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your message has been sent. Thank you!</div>
+                            </div>
+                            <div class="text-center"><button type="submit" value="SaveContact" name="Command" class="btn btn" style="background-color: #008374; color:#f2f2f2">Send Message</button></div>
+                        
+                    }
+                </div>
+
+                <!-- End Contact Form -->
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- End Contact Section -->
+
+</main>
+
+<!-- End #main -->

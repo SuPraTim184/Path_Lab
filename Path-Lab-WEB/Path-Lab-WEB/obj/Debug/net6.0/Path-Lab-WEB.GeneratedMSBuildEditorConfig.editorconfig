@@ -1,0 +1,261 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Path_Lab_WEB
+build_property.RootNamespace = Path_Lab_WEB
+build_property.ProjectDir = C:\Users\sahas\OneDrive\Documents\Path_Lab\Path-Lab-WEB\Path-Lab-WEB\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\sahas\OneDrive\Documents\Path_Lab\Path-Lab-WEB\Path-Lab-WEB
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 6.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Admin/AddEditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkRWRpdFVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Admin/AppointmentCancelDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXBwb2ludG1lbnRDYW5jZWxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Admin/ManageEmployeePresentdaily.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlRW1wbG95ZWVQcmVzZW50ZGFpbHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Admin/PaymentDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF5bWVudERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Admin/PaymentTransactionDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF5bWVudFRyYW5zYWN0aW9uRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Admin/TestCancelDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVGVzdENhbmNlbERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/DoctorWork/AddEditprescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yV29ya1xBZGRFZGl0cHJlc2NyaXB0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/DoctorWork/DoctorDashBoard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yV29ya1xEb2N0b3JEYXNoQm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/DoctorWork/DoctorProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yV29ya1xEb2N0b3JQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Doctor/AddEditDoctor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXEFkZEVkaXREb2N0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Doctor/ManageDoctor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXE1hbmFnZURvY3Rvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Doctor/ViewDoctor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXFZpZXdEb2N0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/EmployeeWork/AppointmentDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVXb3JrXEFwcG9pbnRtZW50RGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/EmployeeWork/EmployeeDashBoard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVXb3JrXEVtcGxveWVlRGFzaEJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/EmployeeWork/EmployeeProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVXb3JrXEVtcGxveWVlUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/EmployeeWork/ManageAppointmentBookingDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVXb3JrXE1hbmFnZUFwcG9pbnRtZW50Qm9va2luZ0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/EmployeeWork/ManageTestBookingDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVXb3JrXE1hbmFnZVRlc3RCb29raW5nRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/EmployeeWork/TestDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVXb3JrXFRlc3REZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Employee/AddEditEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQWRkRWRpdEVtcGxveWVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Employee/EmployeeDashBoard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRW1wbG95ZWVEYXNoQm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Employee/ManageEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcTWFuYWdlRW1wbG95ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Employee/ViewEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcVmlld0VtcGxveWVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Home/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Home/UpdatePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcGRhdGVQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/AppointmentBooking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxBcHBvaW50bWVudEJvb2tpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/AppointmentInvoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxBcHBvaW50bWVudEludm9pY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ChatUsAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxDaGF0VXNBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ChatUsAdminGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxDaGF0VXNBZG1pbkdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ChatUsUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxDaGF0VXNVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/EmployeeProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxFbXBsb3llZVByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ManageAppointmentBooking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxNYW5hZ2VBcHBvaW50bWVudEJvb2tpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ManageContactUS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxNYW5hZ2VDb250YWN0VVMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ManageTestBooking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxNYW5hZ2VUZXN0Qm9va2luZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/TestBooking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxUZXN0Qm9va2luZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/TestInvoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxUZXN0SW52b2ljZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxVc2VyUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/UserRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxVc2VyUmVnaXN0cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/PathLab/ViewContactUs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aExhYlxWaWV3Q29udGFjdFVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/DoctorLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXERvY3RvckxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/EmployeeLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVtcGxveWVlTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/NavSideBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE5hdlNpZGVCYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/UserLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFVzZXJMYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/UserLayoutOthers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFVzZXJMYXlvdXRPdGhlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Test/AddEditTest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVzdFxBZGRFZGl0VGVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Test/AddEditTestReportSample.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVzdFxBZGRFZGl0VGVzdFJlcG9ydFNhbXBsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Test/ManageTest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVzdFxNYW5hZ2VUZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/UserAdd/AddEditAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckFkZFxBZGRFZGl0QWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/UserAdd/AddEditDoctorRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckFkZFxBZGRFZGl0RG9jdG9yUmVnaXN0cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/UserAdd/AddEditEmployeeRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckFkZFxBZGRFZGl0RW1wbG95ZWVSZWdpc3RyYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/UserAdd/AddEditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckFkZFxBZGRFZGl0VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/UserAdd/UserRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckFkZFxVc2VyUmVnaXN0cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahas/OneDrive/Documents/Path_Lab/Path-Lab-WEB/Path-Lab-WEB/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-nztfpe2urs

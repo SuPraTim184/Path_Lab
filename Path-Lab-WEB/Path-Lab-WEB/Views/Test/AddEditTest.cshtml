@@ -1,0 +1,130 @@
+﻿@using System.Diagnostics;
+@model Path_Lab_ENTITY.eTest
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+@using (Html.BeginForm("AddEditTest", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="hm-gradient">
+
+        <main>
+
+            <!--MDB Forms-->
+            <div class="container mt-4">
+
+                <!-- Grid row -->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Form register -->
+                                <form>
+                                    <h3 class="text-center pink-text font-bold py-4"><strong>Insert/Update Test Details</strong></h3>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Test Name</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Name, new{@class="form-control" , @placeholder="Enter Name..." , @type="text" ,  @required = "required" })
+                                            @Html.HiddenFor(model => model.TestId)
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Test Time</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.TestTime, new{@class="form-control"  , @id="TestTime", @placeholder="Enter Test Time..." , @type="text" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Test Lab Name</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.LabName, new{@class="form-control" , @placeholder="Enter Lab Name..." , @type="text" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Test Price</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.TestPrice, new{@class="form-control" , @placeholder="Enter Test Price..." , @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Other Test Price</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.OtherTestPrice, new{@class="form-control" , @placeholder="Enter Qualification..." ,   @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    
+
+                                    <div class="text-center py-4">
+                                        <button value="Save" name="Command" class="btn btn-success btn-outline-primary">Save Data<i class="fa fa-paper-plane-o ml-1"></i></button>
+                                    </div>
+                                </form>
+                                <!-- Form register -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+
+                <hr class="my-4">
+
+
+            </div>
+            <!--MDB Forms-->
+
+        </main>
+
+    </div>
+
+}
+
+
+<script>
+    $('#img_profilepic').click(function () {
+        $('#file_ProfilePic').trigger('click');
+    });
+
+    function showPic() {
+        var file = $("#file_ProfilePic")[0].files[0];
+        var imageType = /image.*/;
+        if (file.type.match(imageType)) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img_profilepic').attr("src", e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>

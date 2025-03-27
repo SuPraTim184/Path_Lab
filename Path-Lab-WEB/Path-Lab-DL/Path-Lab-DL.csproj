@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Path_Lab_DL</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Path-Lab-DS\Path-Lab-DS.csproj" />
+    <ProjectReference Include="..\Path-Lab-ENTITY\Path-Lab-ENTITY.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,776 @@
+﻿@* @using Path_Lab_ENTITY
+@model Path_Lab_ENTITY.eTestBooking *@
+
+@using System.Web
+@{
+    ViewData["Title"] = "TestDetails";
+    Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+            .invoice-box table td {
+                padding: 5px;
+                vertical-align: top;
+            }
+
+            .invoice-box table tr td:nth-child(2) {
+                text-align: right;
+            }
+
+            .invoice-box table tr.top table td {
+                padding-bottom: 20px;
+            }
+
+                .invoice-box table tr.top table td.title {
+                    font-size: 45px;
+                    line-height: 45px;
+                    color: #333;
+                }
+
+            .invoice-box table tr.information table td {
+                padding-bottom: 40px;
+            }
+
+            .invoice-box table tr.heading td {
+                background: #eee;
+                border-bottom: 1px solid #ddd;
+                font-weight: bold;
+            }
+
+            .invoice-box table tr.item td {
+                border-bottom: 1px solid #eee;
+            }
+
+            .invoice-box table tr.item.last td {
+                border-bottom: none;
+            }
+
+            .invoice-box table tr.total td:nth-child(3),
+            .invoice-box table tr.total td:nth-child(4) {
+                border-top: 2px solid #eee;
+                font-weight: bold;
+            }
+
+    .note {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+<br>
+<br>
+
+@if (Model.PaymentDue == "Due")
+{
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <center>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#AddTranscation">Add Transcation</button>
+            </center>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+}
+
+<br>
+
+<div class="invoice-box" id="InvoiceDownloads">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td class="title">
+                <h2>Your Lab</h2>
+                <p>Railghumti, Near S.P Bungalow, Cooch Behar</p>
+                <p>Contact: 8927483306</p>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-family:'Times New Roman', Times, serif; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-weight:bold; text-align:center; font-size:16px;">
+                INVOICE
+            </td>
+        </tr>
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            Bill To: @Context.Request.Cookies["UFullName"].ToString()<br>
+                            Patient Name: @Model.PatientName<br />
+                            Appointment Date : @Model.BookingDate.ToString("dd-MM-yyyy")<br/>                            
+                            User Phone No : @Model.PrimaryPhone
+                        </td>
+                        <td colspan="2">
+                            Test ID #: @Model.BookingID<br>
+                            Booking Date: @Model.DateEntered.ToString("dd-MM-yyyy")<br>
+                            Payment: @Model.PaymentDue
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr style="border: 1px solid #eee; font-weight:bold;border-bottom:dotted;">
+            <th>Test Name</th>
+            <th>Test Fees</th>
+        </tr>
+        <hr>
+
+        @foreach (var Test in ViewBag.TestBookingDetails)
+        {
+            <tr>
+                <th>@Test.TestName </th>
+                <th>@Test.Fees </th>
+            </tr>
+        }
+    </table>
+    <p class="note">Total Payable Amount: @Model.TotalFees </p>
+    <p class="note">Total Pament Amount: @Model.TotalPayment </p>
+    @if ((decimal?)Model.DueAmount == 0.00m)
+    {
+        <p class="note"> Payment Successfully</p>
+    }
+    else
+    {
+        <p class="note">Total Due Amount: @Model.DueAmount</p>
+    }
+    <p class="note">THANK YOU ,<br>Your smile is best return for us.</p>
+</div>
+
+<br>
+<br>
+<center><button onclick="generatePDF()" class="btn btn-outline-success">Download PDF</button></center>
+
+<div class="modal fade" id="AddTranscation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Test</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("TestDetails", "EmployeeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Pay Amount :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("PayAmount", null, new { @class = "form-control", @placeholder = "Pay Amount..." })
+                            @Html.Hidden("TestBookingId", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Total Amount :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("PaymentAmount", null, new { @class = "form-control", @placeholder = "Payment Amount...", @ReadOnly = "Readonly" })
+
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Due Amount :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("DueAmount", null, new { @class = "form-control", @placeholder = "Due Amount...", @ReadOnly = "Readonly" })
+
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Booking ID :</label>
+                        <div class="col-sm-6">
+                            @Html.TextBox("EntityTypeID", null, new { @class = "form-control", @placeholder = "Booking ID...", @ReadOnly = "Readonly" })
+
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <center>
+                        <button type="submit" class="btn" value="SaveBooking" name="Command" style="background-color:#008374;color:#f2f2f2;">Submit Booking</button>
+                    </center>
+                    <br>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <table class="table table-bordered table-responsive table-striped table-hover ">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Test Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var MAB in ViewBag.ManageTestReportDetails)
+                {
+                    @*    <tr>
+                <td>@MAB.BookingID</td>
+                <td>@MAB.TestName</td>
+                @if (MAB.TestReportHTML != null)
+                {
+                <td><button onclick="openModal('@MAB.TestReportID','@MAB.TestBookingId', '@MAB.BookingID','@MAB.TestBookingDetailsID', '@MAB.TestId','@MAB.TestReportHTML','@MAB.TestName')"><i class="fa-solid fa-pen-to-square"></i></button>||<button onclick="openModals('@MAB.TestReportID','@MAB.TestBookingId', '@MAB.BookingID','@MAB.TestBookingDetailsID', '@MAB.TestId','@MAB.TestReportHTML','@MAB.TestName')"><i class="fa-solid fa-download"></i></button></td>
+                }
+                else
+                {
+                <td><button onclick="openModal('@MAB.TestReportID','@MAB.TestBookingId', '@MAB.BookingID','@MAB.TestBookingDetailsID', '@MAB.TestId','@MAB.ReportHTML','@MAB.TestName')"><i class="fa-solid fa-pen-to-square"></i></button></td>
+                }
+                </tr> *@
+                    @* <td><button onclick="openModal(3, 'Sam Brown', 'UX Designer', 95000)">Edit</button></td> *@
+
+                    <tr>
+                        <td>@MAB.BookingID</td>
+                        <td>@MAB.TestName</td>
+                        @if (MAB.TestReportHTML == null)
+                        {
+                            <td>
+                                <button onclick="openModal('@MAB.TestReportID','@MAB.TestBookingId','@MAB.BookingID','@MAB.TestBookingDetailsID','@MAB.TestId', '@MAB.ReportHTML', '@MAB.TestName')">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <button onclick="openModal('@MAB.TestReportID','@MAB.TestBookingId','@MAB.BookingID','@MAB.TestBookingDetailsID','@MAB.TestId', '@MAB.TestReportHTML', '@MAB.TestName')">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                ||
+
+                                <a href="#@MAB.TestBookingDetailsID">
+                                    <i class="fa-solid fa-download"></i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
+
+<!-- Modal -->
+<style>
+    #editor {
+        width: 100%;
+        padding: 10px;
+        border-right: 1px solid #ddd;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    /*     #preview {
+                            width: 100%;
+                            padding: 10px;
+                            box-sizing: border-box;
+                            overflow-y: auto;
+                            background-color: #f8f9fa;
+                        } */
+
+
+    /* textarea {
+                            width: 100%;
+                            height: calc(100vh - 40px);
+                            border: none;
+                            resize: none;
+                        } */
+
+
+    @@page {
+        size: A4;
+        margin: 5mm;
+    }
+
+    .a4-page {
+        width: 210mm;
+        height: 297mm;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        padding: 5mm;
+        box-sizing: border-box;
+    }
+
+    .a4header, .a4footer {
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .a4footer {
+        border-top: 1px solid #ccc;
+        border-bottom: none;
+    }
+
+    .content {
+        padding: 20px 0;
+    }
+
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    .section-content {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .full-page-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .full-page-table td, .full-page-table th {
+            padding: 8px;
+        }
+
+        .full-page-table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+
+<!-- Modal -->
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Test Report</h5>
+                <button type="button" id="CloseModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("TestDetails", "EmployeeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @* @Html.Hidden("TestReportID")
+                @Html.Hidden("TestBookingId")
+                @Html.Hidden("BookingID")
+                @Html.Hidden("TestBookingDetailsID")
+                @Html.Hidden("TestId") *@
+                    <input type="hidden" id="TestReportID" />
+                    <input type="hidden" id="TestBookingId" />
+                    <input type="hidden" id="BookingID" />
+                    <input type="hidden" id="TestBookingDetailsID" />
+                    <input type="hidden" id="TestId" />
+                    <div style="visibility: hidden;">
+                        @Html.TextArea("ReportHTML", new { @placeholder = "Type your HTML code here...", @id = "ReportHTML", Type = "hidden" })
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="preview">
+                                        <h5>Live Preview</h5>
+                                        <div class="a4-page" id="ReportDownLoad">
+                                            <div class="a4header">
+                                                <h4 class="title">Your Lab - – Appointment Health Care</h4>
+                                                <h6 class="title">
+                                                    <b>Railghumti, Near S.P Bungalow, Cooch Behar, 736101</b>
+                                                </h6>
+                                                <h6 class="title">
+                                                    <b>Email :</b> yourlabsample@gmail.com &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Phone :</b> +91-8927483306
+                                                </h6>
+                                            </div>
+                                            <div class="content">
+                                                <div class="section">
+                                                    <h2 class="section-title">Patient Details Below : </h2>
+                                                    <p class="section-content">
+                                                        <table class="full-page-table">
+                                                            <tbody>
+                                                                <tr>
+
+                                                                    <td><b>Test ID #: </b></td>
+                                                                    <td>@Model.BookingID</td>
+                                                                    <td><b>Patient Name : </b></td>
+                                                                    <td>@Model.PatientName</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Age : </b></td>
+                                                                    <td>@Model.PatientAge</td>
+                                                                    <td><b>Appointment Date : </b></td>
+                                                                    <td>@Model.BookingDate.ToString("dd-MM-yyyy")</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </p>
+                                                </div>
+                                                <div class="section">
+                                                    <h2 class="section-title">Report Section &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <b>Test Name : </b><p id="TestName"></p></h2>
+                                                    <p class="section-content">
+                                                        <iframe id="output" style="width: 100%; height: calc(100vh - 80px); border: none;"></iframe>
+                                                    </p>
+                                                </div>
+                                                <!-- Add more sections as needed -->
+                                            </div>
+                                            <div class="a4footer">
+                                                <p>©2024 Your Lab</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <center>
+                        <button type="submit" class="btn" value="SaveReport" name="Command" style="background-color:#008374;color:#f2f2f2;">Save Report</button>
+                        @* <a onclick="generatePDF()" class="btn btn-outline-success">Download Report</a> *@
+                    </center>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+@foreach (var i in ViewBag.ManageTestReportDetails)
+{
+    if (i.TestReportHTML != null)
+    {
+        
+        <div class="a4-page" id=@i.TestBookingDetailsID>
+            <div class="a4header">
+                <h4 class="title">Your Lab - – Appointment Health Care</h4>
+                <h6 class="title">
+                    <b>Railghumti, Near S.P Bungalow, Cooch Behar, 736101</b>
+                </h6>
+                <h6 class="title">
+                    <b>Email :</b> yourlabsample@gmail.com &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Phone :</b> +91-8927483306
+                </h6>
+            </div>
+            <div class="content">
+                <div class="section">
+                    <h2 class="section-title">Patient Details Below : </h2>
+                    <p class="section-content">
+                        <table class="full-page-table">
+                            <tbody>
+                                <tr>
+
+                                    <td><b>Test ID #: </b></td>
+                                    <td>@Model.BookingID</td>
+                                    <td><b>Patient Name : </b></td>
+                                    <td>@Model.PatientName</td>
+
+                                </tr>
+                                <tr>
+                                    <td><b>Age : </b></td>
+                                    <td>@Model.PatientAge</td>
+                                    <td><b>Appointment Date : </b></td>
+                                    <td>@Model.BookingDate.ToString("dd-MM-yyyy")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title">Report Section &nbsp;&nbsp;&nbsp;&nbsp;&nbsp<b>Test Name : </b>@i.TestName</h3>
+                    <p class="section-content">
+                        @Html.Raw(@i.TestReportHTML)
+                    </p>
+                </div>
+                <!-- Add more sections as needed -->
+            </div>
+            <div class="a4footer">
+                <p>©2024 Your Lab</p>
+            </div>
+        </div>
+
+        <br>
+        <center><button onclick="GenerateReportPDF()" class="btn btn-outline-success">Download Report</button></center>
+        <br>
+        <script>
+            async function GenerateReportPDF() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'pt');
+                const element = document.getElementById(@i.TestBookingDetailsID);
+
+                await html2canvas(element).then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgProps = doc.getImageProperties(imgData);
+                    const pdfWidth = doc.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                    doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    doc.save('Report.pdf');
+                });
+            }
+        </script>
+    }
+}
+
+@section Scripts {
+    <script>
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4');
+            const element = document.getElementById('InvoiceDownloads');
+
+            await html2canvas(element).then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                doc.save('invoice.pdf');
+            });
+        }
+    </script>
+
+    <script>
+        var BookingID = '@Model.BookingID';
+        console.log(BookingID);
+        document.getElementById("EntityTypeID").value = BookingID;
+
+        var Fees = '@Model.TotalFees';
+        console.log(Fees);
+        document.getElementById("PaymentAmount").value = Fees;
+
+        var DueAmount = '@Model.DueAmount';
+        console.log(DueAmount);
+        document.getElementById("DueAmount").value = DueAmount;
+
+    </script>
+
+    <script>
+        // Function to validate PayAmount against DueAmount
+        function validatePayAmount() {
+            var dueAmount = parseFloat(document.getElementById('DueAmount').value) || 0;
+            var payAmount = parseFloat(document.getElementById('PayAmount').value) || 0;
+
+            if (payAmount > dueAmount) {
+                alert("Pay Amount cannot exceed Due Amount.");
+                document.getElementById('PayAmount').value = null; // Optionally reset value
+            }
+        }
+
+        // Add event listener to PayAmount input field
+        document.getElementById('PayAmount').addEventListener('input', validatePayAmount);
+    </script>
+
+    <!--Modal-->
+
+    <script>
+        const ReportHTML = document.getElementById('ReportHTML');
+        const iframe = document.getElementById('output');
+
+        // Function to update the iframe with HTML code from textarea
+        function updatePreview() {
+            const html = ReportHTML.value;
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            // iframeDoc.open();
+            // iframeDoc.write(html);
+            // iframeDoc.close();
+
+            iframeDoc.body.innerHTML = html;
+
+            // Attach input listeners to iframe elements to sync with textarea
+            attachInputListeners(iframeDoc);
+        }
+
+        // Function to attach input listeners to iframe inputs to update the HTML code in textarea
+        function attachInputListeners(iframeDoc) {
+            const inputs = iframeDoc.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    syncIframeChangesToTextarea(iframeDoc);
+                });
+            });
+        }
+
+        // Function to sync changes from iframe inputs back to textarea
+        function syncIframeChangesToTextarea(iframeDoc) {
+            // Get the HTML content and update the textarea while preserving input values
+            const inputs = iframeDoc.querySelectorAll('input');
+            let updatedHTML = iframeDoc.body.innerHTML;
+
+            // Update HTML string to include current input values
+            inputs.forEach(input => {
+                const inputHtml = `<input type="${input.type}" id="${input.id}" placeholder="${input.placeholder}" value="${input.value}">`;
+                updatedHTML = updatedHTML.replace(new RegExp(`<input([^>]+)id="${input.id}"[^>]*>`, 'i'), inputHtml);
+            });
+
+            ReportHTML.value = updatedHTML;
+        }
+
+        // Event listener to update preview when textarea input changes
+        ReportHTML.addEventListener('input', updatePreview);
+
+        // Initial call to render the default textarea content
+        updatePreview();
+    </script>
+
+
+    <script>
+        // Function to open the modal and populate it with the row data
+        // function openModal(TestReportID, TestBookingId, BookingID, TestBookingDetailsID, TestId, ReportHTML, TestName) {
+        //     debugger;
+        //     // Set the content of the modal form
+        //     document.getElementById("TestReportID").value = TestReportID;
+        //     document.getElementById("TestBookingId").value = TestBookingId;
+        //     document.getElementById("BookingID").value = BookingID;
+        //     document.getElementById("TestBookingDetailsID").value = TestBookingDetailsID;
+        //     document.getElementById("TestId").value = TestId;
+        //     // document.getElementById("TestReportHTML").value = TestReportHTML;
+        //     document.getElementById("ReportHTML").value = ReportHTML;
+        //     document.getElementById("TestName").innerText = TestName;
+        //     // document.getElementById("TestName").value = TestName;
+        //     // Console.log(ReportHTML)
+        //     // Show the modal using Bootstrap's modal API
+        //     var myModal = new bootstrap.Modal(document.getElementById('editModal'));
+        //     myModal.show();
+        //     updatePreview();
+        // }
+
+        function openModal(TestReportID, TestBookingId, BookingID, TestBookingDetailsID, TestId, ReportHTML, TestName) {
+            debugger;
+            // Set the content of the modal form
+            document.getElementById("TestReportID").value = TestReportID;
+            document.getElementById("TestBookingId").value = TestBookingId;
+            document.getElementById("BookingID").value = BookingID;
+            document.getElementById("TestBookingDetailsID").value = TestBookingDetailsID;
+            document.getElementById("TestId").value = TestId;
+
+            // Set the HTML content safely
+            document.getElementById("ReportHTML").value = ReportHTML || '';
+            document.getElementById("TestName").innerText = TestName;
+
+            // Show the modal using Bootstrap's modal API
+            var myModal = new bootstrap.Modal(document.getElementById('editModal'));
+            myModal.show();
+
+            updatePreview();
+        }
+
+        document.getElementById("editModal").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData();
+            formData.append("TestReportID", document.getElementById("TestReportID").value);
+            formData.append("TestBookingId", document.getElementById("TestBookingId").value);
+            formData.append("BookingID", document.getElementById("BookingID").value);
+            formData.append("TestBookingDetailsID", document.getElementById("TestBookingDetailsID").value);
+            formData.append("TestId", document.getElementById("TestId").value);
+            formData.append("ReportHTML", document.getElementById("ReportHTML").value);
+            formData.append("Command", "SaveReport");
+
+            console.log("Updated Data: ", Object.fromEntries(formData.entries()));
+
+            // Send AJAX request
+            fetch('/EmployeeWork/TestDetails', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Response from server:", data);
+
+                    // Close the modal after form submission
+                    var myModal = new bootstrap.Modal(document.getElementById('editModal'));
+                    myModal.hide();
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+
+
+    </script>
+
+    <script>
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt');
+            const element = document.getElementById('ReportDownLoads');
+
+            await html2canvas(element).then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                doc.save('Report.pdf');
+            });
+        }
+    </script>
+
+    <script>
+        function clearTextbox() {
+            // document.getElementById('myTextbox').value = '';
+
+            debugger
+            document.getElementById("TestReportID").value = '';
+            document.getElementById("TestBookingId").value = '';
+            document.getElementById("BookingID").value = '';
+            document.getElementById("TestBookingDetailsID").value = '';
+            document.getElementById("TestId").value = '';
+            document.getElementById("ReportHTMLForTest").innerText = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('CloseModal').addEventListener('click', clearTextbox);
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('editModal'); modal.addEventListener('hidden.bs.modal', clearTextbox);
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('editModals'); modal.addEventListener('hidden.bs.modal', clearTextbox);
+        });
+
+    </script>
+
+}

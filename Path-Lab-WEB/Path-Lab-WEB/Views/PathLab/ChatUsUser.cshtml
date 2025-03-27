@@ -1,0 +1,245 @@
+﻿@using System.Diagnostics;
+@model Path_Lab_ENTITY.eChatUs;
+
+@{
+    ViewData["Title"] = "Chat with Us";
+    Layout = "~/Views/Shared/UserLayoutOthers.cshtml";
+}
+
+<style>
+
+    .content {
+        width: 100%;
+        max-width: 512px;
+        padding-block: 48px;
+        border-radius: 8px;
+        background-color: #242423;
+    }
+
+    .marquee {
+        position: relative;
+        background-color: #f5cb5c;
+        padding-block: 8px;
+        overflow: hidden;
+    }
+
+        .marquee:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+    .marquee__inner {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .marquee__part {
+        flex-shrink: 0;
+        padding-inline: 2px;
+        animation-name: marquee;
+        animation-duration: 4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .border-left-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .border-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+        border-right: 1px solid #008374; /* Customize the color as needed */
+        border-top: 1px solid #008374; /* Customize the color as needed */
+        border-bottom: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .fade-out {
+        transition: opacity 1s ease-out, height 0.3s ease-out;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+
+    /*.chat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .message {
+        margin-bottom: 10px;
+        max-width: 70%;
+        padding: 10px;
+        border-radius: 10px;
+        line-height: 1.5;
+        display: inline-block;
+    }
+
+        .message.received {
+            align-self: flex-start;
+            background-color: #e4e6eb;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background-color: #DCF8C6;
+        }
+
+    .input-container {
+        display: flex;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }*/
+
+
+    .input-container input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        font-size: 16px;
+        outline: none;
+        margin-right: 10px;
+    }
+
+    .input-container button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+
+
+
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        height: 500px; /* Adjust as needed */
+        max-height: 80vh; /* Make it responsive based on viewport height */
+    }
+
+    .chat-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message {
+        padding: 8px 12px;
+        margin: 5px 0;
+        border-radius: 8px;
+        max-width: 80%;
+    }
+
+        .message.sent {
+            align-self: flex-end;
+            background-color: #daf1da;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background-color: #f1f0f0;
+        }
+
+    .input-container {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+<section>
+    <div class="marquee">
+        <marquee>
+            <ul class="marquee__inner">
+                <li class="marquee__part">
+                    Book Doctor Appointment •
+                </li>
+                <li class="marquee__part">
+                    Your Lab •
+                </li>
+                <li class="marquee__part">
+                    Always With You •
+                </li>
+                <li class="marquee__part">
+                    For Your Better Health •
+                </li>
+            </ul>
+        </marquee>
+    </div>
+</section>
+<br>
+
+@using (Html.BeginForm("ChatUsUser", "PathLab", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Contact Us Messages</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chat-container">
+                        @foreach (var i in ViewBag.ChatUsList)
+                        {
+                            if (i.ReplyByName == "User")
+                            {
+                                <div class="message sent">
+                                    @i.ChatComment
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="message received">
+                                    @i.ChatComment
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="input-container">
+                        @Html.TextBoxFor(m => m.ChatComment, new { @type = "text", @placeholder = "Type your message here..." })
+                        <button value="SaveChat" name="Command">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+}
+
+<script>
+    // Function to keep the chat container scrolled to the bottom
+    function scrollToBottom() {
+        var chatContainer = document.querySelector('.chat-container');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Call scrollToBottom initially to start at the bottom
+    document.addEventListener('DOMContentLoaded', scrollToBottom);
+
+    // Call scrollToBottom whenever you send a new message
+    document.querySelector('button[name="Command"]').addEventListener('click', function() {
+        setTimeout(scrollToBottom, 100); // Adjust timeout if necessary
+    });
+</script>

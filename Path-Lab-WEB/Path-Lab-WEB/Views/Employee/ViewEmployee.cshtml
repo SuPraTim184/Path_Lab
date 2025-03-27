@@ -1,0 +1,122 @@
+﻿@model Path_Lab_ENTITY.eEmployee
+@{
+    ViewData["Title"] = "ViewEmployee";
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+@using (Html.BeginForm("ViewEmployee", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid">
+
+        <center>
+            <div class="card" style="width: 35rem;">
+                <center>
+                    <img class="card-img-top </center>" src="~/Profile/@Model.ImagePath" alt="Card image cap" style="height:50%; width:50%">
+                </center>
+                <div class="card-body">
+                    <h5 class="card-title"><b>Employee Profile</b></h5>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Name</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.EmployeeName)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Degination</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Degination)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Gender</label>
+                        </div>
+                        <div class="col-sm-9">
+
+                            @Html.DisplayFor(model => model.Gender)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Email</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Email)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Phone Number</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.PhoneNumber)
+                        </div>
+                    </div>
+                    <br />
+                    @{
+                        string formattedDate = Model.DateOfJoining?.ToString("dd/MM/yyyy");
+                    }
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Date Of Joining</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model =>formattedDate)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Address</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Address)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">PinCode</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.PinCode)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Qualification</label>
+                        </div>
+                        <div class="col-sm-9">
+                            @Html.DisplayFor(model => model.Qualification)
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="orangeForm-name37">Type</label>
+                        </div>
+                        <div class="col-sm-9">
+
+                            @Html.DisplayFor(model => model.Type)
+                        </div>
+                    </div>
+
+
+                    <hr>
+                    <a href="~/Employee/AddEditEmployee/0/0/@Model.EmployeeId" class="btn btn-primary">Edit</a> | <a href="~/Employee/ManageEmployee" class="btn btn-primary">Manage Employee</a>
+                </div>
+            </div>
+        </center>
+    </div>
+}

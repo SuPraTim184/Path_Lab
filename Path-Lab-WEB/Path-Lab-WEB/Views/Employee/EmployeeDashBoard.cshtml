@@ -1,0 +1,86 @@
+﻿@model Path_Lab_ENTITY.eEmployee
+
+@{
+    Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+    ViewData["Title"] = "EmployeeDashBoard";
+}
+<style>
+    h1 {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        font-size: 40px;
+        color: #080808;
+        -webkit-transition: all 0.4s ease 0s;
+        -o-transition: all 0.4s ease 0s;
+        transition: all 0.4s ease 0s;
+    }
+
+        h1 span {
+            display: block;
+            font-size: 0.5em;
+            line-height: 1.3;
+        }
+
+        h1 em {
+            font-style: normal;
+            font-weight: 600;
+        }
+
+    .three h1 {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.5em;
+        padding-bottom: 15px;
+        position: relative;
+    }
+
+        .three h1:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 5px;
+            width: 55px;
+            background-color: #111;
+        }
+
+        .three h1:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            height: 1px;
+            width: 95%;
+            max-width: 255px;
+            background-color: #333;
+        }
+
+    hr {
+        background-color: #fff;
+        padding: 0;
+        margin: 10px;
+    }
+
+        hr.hr-1 {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+        }
+
+</style>
+
+<div class="three p-5">
+    <h1>Welcome : @Context.Request.Cookies["UFullName"].ToString()</h1>
+</div>
+
+<div class="row container-fluid text-center">
+    <div class="col-sm-6 p-2"><button type="button" class="btn btn-success">Punch In</button></div>
+    <div class="col-sm-6 p-2"><button type="button" class="btn btn-danger">Punch Out</button></div>
+    <br>
+    <center><div class="alert alert-success" role="alert">You already Punch In </div></center>
+</div>
+<hr class="hr-1">

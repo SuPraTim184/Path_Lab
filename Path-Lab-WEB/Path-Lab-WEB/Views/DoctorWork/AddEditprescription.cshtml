@@ -1,0 +1,326 @@
+﻿@using System.Diagnostics;
+@model Path_Lab_ENTITY.eAppointmentDetails;
+@{
+    Layout = "~/Views/Shared/DoctorLayout.cshtml";
+    ViewData["Title"] = "PatientMedicine";
+}
+
+<style>
+
+    .content {
+        width: 100%;
+        max-width: 512px;
+        padding-block: 48px;
+        border-radius: 8px;
+        background-color: #242423;
+    }
+
+    keyframes marquee {
+        /*       from:
+
+                                                                                                                                                    {
+                                                                                                                                                        transform: translateX(0);
+                                                                                                                                                    }
+
+                                                                                                                                                    to {
+                                                                                                                                                        transform: translateX(-100%);
+                                                                                                                                                    }*/
+    }
+
+    .marquee {
+        position: relative;
+        background-color: #f5cb5c;
+        padding-block: 8px;
+        overflow: hidden;
+    }
+
+        .marquee:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+    .marquee__inner {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .marquee__part {
+        flex-shrink: 0;
+        padding-inline: 2px;
+        animation-name: marquee;
+        animation-duration: 4s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .border-left-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    .border-custom {
+        border-left: 1px solid #008374; /* Customize the color as needed */
+        border-right: 1px solid #008374; /* Customize the color as needed */
+        border-top: 1px solid #008374; /* Customize the color as needed */
+        border-bottom: 1px solid #008374; /* Customize the color as needed */
+    }
+
+    #Table {
+        height: 600px;
+        overflow-y: auto;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#addNew").click(function (e) {
+            e.preventDefault();
+            var $tableBody = $("#ProposedSecE tbody");
+            var $trLast = $tableBody.find("tr:last");
+            var $trNew = $trLast.clone();
+
+            // Get the current row index and increment for the new row
+            var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+            var newSuffix = parseInt(suffix) + 1;
+
+            $.each($trNew.find(':input'), function () {
+                var oldN = $(this).attr('name');
+                var newN = oldN.replace(/\d+/, newSuffix);
+                $(this).attr('name', newN);
+
+                var type = $(this).attr('type');
+                // if (type.toLowerCase() == "text") {
+                //     $(this).val('');
+                // } else if (type.toLowerCase() == "checkbox") {
+                //     $(this).prop("checked", false);
+                // }
+            });
+
+            $trLast.after($trNew);
+            $trNew.find(':text').val('');
+        });
+
+        // Remove row functionality
+        $(document).on('click', '.removeRow', function (e) {
+            e.preventDefault();
+            $(this).closest('tr').remove();
+        });
+    });
+</script>
+<br />
+
+@using (Html.BeginForm("AddEditprescription", "DoctorWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row container-fluid">
+        <div class="col-sm-12" style="padding:10px;">
+            <div class="card">
+                <div class="card-header">
+                    Patient Information
+                </div>
+                <div class="card-body">
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Patient Name :</label>
+                        <div class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientName, new { @class = "form-control" })
+                            @Html.HiddenFor(model => model.PatientID, new { @class = "form-control" })
+                            @Html.HiddenFor(model => model.AppointmentBookingID, new { @class = "form-control" })
+                            @Html.HiddenFor(model => model.BookingID, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">Patient Date of Birth :</label>
+                        <div class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientDOB, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="row p-2 text-center">
+                        <label class="col-sm-4 control-label">SuccessFul :</label>
+                        <div class="col-sm-6">
+                            @Html.CheckBox("SuccessfulAppointment")
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container-fluid">
+        <div class="col-sm-12" style="padding:10px;">
+            <div class="card">
+                <div class="card-header">
+                    Patient General Details
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <div class="row p-2 text-center">
+                                <label class="col-sm-4 control-label">Height :</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.PatientHeight, new { @class = "form-control", @placeholder = "Height...", @type = "text", @required = "required" })
+                                </div>
+                            </div>
+
+                            <div class="row p-2 text-center">
+                                <label class="col-sm-4 control-label">BP Upper:</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.PatientBPHigh, new { @class = "form-control", @placeholder = "BP Higher...", @required = "required" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row p-2 text-center">
+                                <label class="col-sm-4 control-label">Weight :</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.PatientWeight, new { @class = "form-control", @placeholder = "Weight...", @type = "text", @required = "required" })
+                                </div>
+                            </div>
+
+
+                            <div class="row p-2 text-center">
+                                <label class="col-sm-4 control-label">BP Lower:</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBoxFor(model => model.PatientBPLow, new { @class = "form-control", @placeholder = "BP Lower...", @required = "required" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container-fluid">
+        <div class="col-sm-12">
+
+            <div class="row p-2 text-center">
+                <label class="col-sm-4 control-label">Description :</label>
+                <div class="col-sm-6">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <br>
+            <center>
+                <a id="addNew" class="btn btn-outline-success ">
+                    <span class="material-icons">
+                        <i class="fa-solid fa-plus"></i> Add New Medicine
+                    </span>
+                </a>
+            </center>
+            <br>
+
+
+            <table id="ProposedSecE" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">Medicine Name</th>
+                        <th style="text-align:center;">Using</th>
+                        <th style="text-align:center;">Actions</th> <!-- New column for actions -->
+                    </tr>
+                </thead>
+                <tbody id="Tbdy_SetbackProposed">
+                    @{
+                        int j = 0;
+                        foreach (var i in Model.MedicineList)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBoxFor(model => model.MedicineList[j].MedicineName, new { @class = "form-control" })
+                                    @Html.HiddenFor(model => model.MedicineList[j].AppointmentBookingID, new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.MedicineList[j].MedicineUsing, new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    <!-- New column for actions -->
+                                    <center>
+                                        <a href="#" class="removeRow">
+                                            <span class="material-icons"> <i class="fa-solid fa-trash"></i> </span>
+                                        </a>
+                                    </center>
+                                </td>
+                            </tr>
+                            j++;
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row container-fluid">
+        <div class="col-sm-12">
+            <center>
+                <button type="submit" class="btn" value="SaveMedicine" name="Command" style="background-color:#008374;color:#f2f2f2;">Submit</button>
+            </center>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row container-fluid">
+        <div class="col-sm-12" style="padding:10px;">
+            <div class="card">
+                <div class="card-header">
+                    Patient Previous Details
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @using (Html.BeginForm("AddEditprescription", "DoctorWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Booking ID</th>
+                                            <th scope="col">Booking Date</th>
+                                            <th scope="col">To Doctor</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var lst in ViewBag.PreviousList)
+                                        {
+                                            <tr>
+                                                <th scope="row">@lst.BookingID</th>
+                                                <td>@lst.BookingDate.ToString("dd-MM-yyyy")</td>
+                                                <td>@lst.DoctorName</td>
+                                                <td>
+                                                    <a href="~/EmployeeWork/AppointmentDetails?id=@lst.AppointmentBookingID" target="_blank"><i class="fa-solid fa-eye"></i></a>
+                                                    @*<button type="button" class="btn btn-primary view-details-btn"
+                                                            data-toggle="modal" data-target="#exampleModalLong"
+                                                            data-bookingid="@lst.BookingID"
+                                                            data-appointmentbookingid="@lst.AppointmentBookingID">
+                                                        View Details
+                                                    </button>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,142 @@
+﻿@model Path_Lab_ENTITY.eEmployeePunchDetails
+@{
+    ViewData["Title"] = "ManageEmployeePresentdaily";
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+</style>
+
+@using (Html.BeginForm("ManageEmployeePresentdaily", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Employee Details</h6>
+            </div>
+            <div class="card-header py-12">
+                <h6 style="text-align:right"><a href="~/PathLab/Index">Back To DashBoard</a></h6>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="orangeForm-name37">Employee Name</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name...", @type = "text" })
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label for="orangeForm-name37">Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.punchInTime, new { @class = "form-control", @placeholder = "From Date...", @type = "date" })
+                    </div>
+                </div>
+
+                <div class="text-center py-4">
+                    <button value="Search" name="Command" class="btn btn-success btn-outline-primary">Save Search</button>
+                    <a href="~/Admin/ManageEmployeePresentdaily" class="btn btn-success btn-outline-primary">Clear Search</a>
+                </div>
+
+
+                <div class="card-body p-0">
+                    <div class="row" >
+                        @foreach (var EmployeePunchDetail in ViewBag.EmployeePunchDetail)
+                        {
+                            @if (EmployeePunchDetail.punchInTime == null)
+                            {
+                                ViewBag.Background = "bg-info text-white";
+                            }
+                            else
+                            {
+                                ViewBag.Background = "bg-success text-white";
+                            }
+
+                            <div class="col-sm-4">
+                                <div class="card @ViewBag.Background" @*style="width: 18rem;"*@>
+
+                                    @if (@EmployeePunchDetail.ImagePath == null || @EmployeePunchDetail.ImagePath == "")
+                                    {
+                                        <center><img class="img-circle" src='~/img/profile.png' alt="Card image cap" style="width:60px;height:60px; margin-top: 10px;"></center>
+                                    }
+                                    else
+                                    {
+                                        <center><img class="img-circle" src='~/Profile/@EmployeePunchDetail.ImagePath' alt="Card image cap" style="width:60px;height:60px; margin-top: 10px;"></center>
+                                    }
+                                    <hr>
+                                    <div class="card-body">
+                                        <h5 class="card-text" style="text-align: center;font-weight: bold;margin-top: -30px;">@EmployeePunchDetail.EmployeeName</h5>
+                                        <hr style="margin-top: -7px;">
+                                        <p class="card-text"><b>Date : </b>@ViewBag.Date.ToString("dd/MM/yyyy")</p>
+
+                                        @if (EmployeePunchDetail.punchInTime == null)
+                                        {
+                                            <p class="card-text">
+                                                <b> Punch In Time: </b> Not Punch In
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">
+                                                <b>Punch In Time :</b> @EmployeePunchDetail.punchInTime.ToString("HH:mm")
+                                            </p>
+                                        }
+
+                                        @if (EmployeePunchDetail.PunchoutTime == null)
+                                        {
+                                            <p class="card-text">
+                                                <b>Punch Out Time :</b> Not Punch Out
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">
+                                                <b>Punch Out Time :</b> @EmployeePunchDetail.PunchoutTime.ToString("HH:mm")
+                                            </p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+
+                    <br><hr>
+                    <center>
+                        <table>
+                            <tr>
+                                <th><p class="bg-info text-dark" style="border-radius: 50%; width: 15px; height: 15px;"></p></th>
+                                <th><p style="font-size:small"> : Not Punch In   ||  </p></th>
+                                <th></th>
+                                <th><p class="bg-success text-dark" style="border-radius: 50%; width: 15px; height: 15px;"></p></th>
+                                <th><p> : Punch In </p></th>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+

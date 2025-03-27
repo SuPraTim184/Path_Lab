@@ -1,0 +1,119 @@
+﻿@model Path_Lab_ENTITY.eTest
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+</style>
+
+@using (Html.BeginForm("ManageTest", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Test Details</h6>
+            </div>
+            <div class="card-header py-12">
+                <h6 style="text-align:right"><a href="~/PathLab/Index">Back To DashBoard</a></h6>
+            </div>
+            <div class="card-body">
+
+
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Data.." title="Type in a name">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Test Name</th>
+                                <th>Lab Name</th>
+                                <th>Test Time</th>
+                                <th>Test Price</th>
+                                <th>Other Test Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var TestDetail in ViewBag.TestDetail)
+                            {
+                                <tr>
+                                    <td>@TestDetail.Name</td>
+                                    <td>@TestDetail.LabName</td>
+                                    <td>@TestDetail.TestTime</td>
+                                    <td>@TestDetail.TestPrice</td>
+                                    <td>@TestDetail.OtherTestPrice</td>
+                                    <td><a href="~/Test/AddEditTest/0/0/@TestDetail.TestId" class="fa fa-edit"></a> || <a href="~/Test/ManageTest/0/0/@TestDetail.TestId?Command=TestDelete" class="fa fa-unlock-alt" alt="Delete Test" name="command" value="delete"></a></td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+@section scripts
+    {
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+*@
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+}
+
+<!-- Custom styles for this page -->
+@*<link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+*@
+
+
+<!-- Page level plugins -->
+@*<script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+*@
+<!-- Page level custom scripts -->
+@*<script src="~/js/demo/datatables-demo.js"></script>*@

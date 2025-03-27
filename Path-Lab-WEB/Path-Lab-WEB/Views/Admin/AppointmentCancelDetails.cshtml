@@ -1,0 +1,253 @@
+﻿@model Path_Lab_ENTITY.eTestBookingCancel
+
+@{
+    ViewData["Title"] = "Test Cancel";
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+<style>
+    #myInput {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h0a6.5 6.5 0 0 0 1.397-1.398zM6.5 11a4.5 4.5 0 1 1 4.5-4.5h0a4.5 4.5 0 0 1-4.5 4.5h0z"/></svg>');
+        background-position: 10px 10px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+</style>
+
+
+@using (Html.BeginForm("AppointmentCancelDetails", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Appointment Cancel Details</h6>
+            </div>
+            <div class="card-header py-12">
+                <h6 style="text-align:right"><a href="~/PathLab/Index">Back To DashBoard</a></h6>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="orangeForm-name37">To Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control", @placeholder = "To Date...", @type = "date" })
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label for="orangeForm-name37">From Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control", @placeholder = "From Date...", @type = "date" })
+                    </div>
+                </div>
+
+                <div class="text-center py-4">
+                    <button value="Search" name="Command" class="btn btn-success btn-outline-primary">Save Search</button>
+                    <a href="~/Admin/AppointmentCancelDetails" class="btn btn-success btn-outline-primary">Clear Search</a>
+                </div>
+
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Data.." title="Type in a name">
+
+                @{
+                    var paymentDetailsList = ViewBag.AppointmentCancelDetailsList as IEnumerable<dynamic>; // Assuming it's a dynamic type
+                    bool hasPaymentDetails = paymentDetailsList != null && paymentDetailsList.Any();
+                }
+
+                @if (hasPaymentDetails)
+                {
+                    var lowDateEntered = paymentDetailsList.Min(pd => pd.AppointmentCancelDate);
+                    var highDateEntered = paymentDetailsList.Max(pd => pd.AppointmentCancelDate);
+
+                    <br />
+                    <center>
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            From @lowDateEntered.ToLongDateString() To @highDateEntered.ToLongDateString()
+                        </h6>
+                    </center>
+                    <br />
+                }
+                @*
+            <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+            <th>Booking ID</th>
+            <th>Booking Date</th>
+            <th>Cancel Date</th>
+            <th>User Name</th>
+            <th>Patient Name</th>
+            <th>Contact Details</th>
+            <th>Reason</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var PaymentDetails in ViewBag.AppointmentCancelDetailsList)
+            {
+            <tr>
+            <td>@PaymentDetails.BookingID</td>
+            <td>@PaymentDetails.BookingDate.ToLongDateString()</td>
+            <td>@PaymentDetails.AppointmentCancelDate.ToLongDateString()</td>
+            <td>@PaymentDetails.FullName</td>
+            <td>@PaymentDetails.PatientName</td>
+            <td>@PaymentDetails.PrimaryEmail | @PaymentDetails.PrimaryPhone </td>
+            <td>@PaymentDetails.Reason</td>
+            </tr>
+            }
+            </tbody>
+            </table>
+            </div>
+            *@
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Booking Date</th>
+                                <th>Cancel Date</th>
+                                <th>User Name</th>
+                                <th>Patient Name</th>
+                                <th>Contact Details</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            @foreach (var PaymentDetails in ViewBag.AppointmentCancelDetailsList)
+                            {
+                                <tr>
+                                    <td>@PaymentDetails.BookingID</td>
+                                    <td>@PaymentDetails.BookingDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@PaymentDetails.AppointmentCancelDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@PaymentDetails.FullName</td>
+                                    <td>@PaymentDetails.PatientName</td>
+                                    <td>@PaymentDetails.PrimaryEmail | @PaymentDetails.PrimaryPhone</td>
+                                    <td>@PaymentDetails.Reason</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @* <div id="pagination" class="btn btn-success btn-outline-primary"></div><br><br/> 
+                    <button class="btn btn-success btn-outline-primary" id="exportButton">Export to Excel</button> *@
+
+                    <div class="row text-center">
+                        <div class="col-sm-6"><button class="btn btn-success btn-outline-primary" id="exportButton">Export to Excel</button></div>
+                        <div class="col-sm-6"><div id="pagination" class="btn btn-success btn-outline-primary"></div></div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script>
+    const rowsPerPage = 10;
+    let currentPage = 1;
+
+    function displayTable(page) {
+        const tableBody = document.getElementById('tableBody');
+        const rows = tableBody.getElementsByTagName('tr');
+        const totalRows = rows.length;
+
+        // Hide all rows
+        for (let i = 0; i < totalRows; i++) {
+            rows[i].style.display = 'none';
+        }
+
+        // Calculate the range of rows to display
+        const start = (page - 1) * rowsPerPage;
+        const end = Math.min(start + rowsPerPage, totalRows);
+
+        // Display the current page's rows
+        for (let i = start; i < end; i++) {
+            rows[i].style.display = '';
+        }
+
+        // Update pagination
+        updatePagination(totalRows);
+    }
+
+    function updatePagination(totalRows) {
+        const pagination = document.getElementById('pagination');
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        pagination.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.innerText = i;
+            pageButton.onclick = function () {
+                currentPage = i;
+                displayTable(currentPage);
+            };
+            pagination.appendChild(pageButton);
+        }
+    }
+
+    document.getElementById('exportButton').onclick = function () {
+        exportToExcel();
+    };
+
+    function exportToExcel() {
+        const table = document.getElementById('dataTable');
+        const rows = Array.from(table.rows);
+        let csv = rows.map(row => Array.from(row.cells).map(cell => cell.innerText).join(',')).join('\n');
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'appointments.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Initial display
+    displayTable(currentPage);
+</script>

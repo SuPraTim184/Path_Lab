@@ -1,0 +1,258 @@
+﻿@using System.Diagnostics;
+@model Path_Lab_ENTITY.eDoctor
+
+@{
+    Layout = "~/Views/Shared/NavSideBar.cshtml";
+}
+
+@using (Html.BeginForm("AddEditDoctor", "Doctor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="hm-gradient">
+
+        <main>
+
+            <!--MDB Forms-->
+            <div class="container mt-4">
+
+                <!-- Grid row -->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Form register -->
+                                <form>
+                                    <h3 class="text-center pink-text font-bold py-4"><strong>Insert/Update Doctor Details</strong></h3>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Name</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.DoctorName, new{@class="form-control" , @placeholder="Enter Name..." , @type="text" ,  @required = "required" })
+                                            @Html.HiddenFor(model => model.DoctorId)
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Specialization</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Specialization, new{@class="form-control" , @placeholder="Enter Specialization..." , @type="text" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Gender</label>
+                                        </div>
+                                        <div class="col-sm-9">
+
+                                            @Html.DropDownListFor(model => model.Gender,
+                                        new List<SelectListItem>
+                                        {
+                                        new SelectListItem { Value = "Male" , Text = "Male"  },
+                                        new SelectListItem { Value = "Female" , Text = "Female" },
+                                        new SelectListItem { Value = "Others" , Text = "Others" },
+                                        },
+                                        "--None--",
+                                        new { @class = "form-control", @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Email</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Email, new{@class="form-control"  , @id="Email", @placeholder="Enter Email..." , @type="email" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Phone Number</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PhoneNumber, new{@class="form-control"  , @id="PhoneNumber", @placeholder="Enter Phone Number..." , @type="number", @minlength="10", @maxlength="10" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Date Of Joining</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.EditorFor(model => model.JoiningDate, new{@class="form-control" , @placeholder="Enter Date Of Joining...",@type="Date" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    @* @{
+                                var dateOfJoiningValue = Model.JoiningDate;
+                                Debug.WriteLine("DateOfJoining Value: " + dateOfJoiningValue);
+                                }
+                                @if (Model.DoctorId == null)
+                                {
+                                <div class="row">
+                                <div class="col-sm-3">
+                                <label for="orangeForm-name37">Doctor Date Of Joining</label>
+                                </div>
+                                <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.JoiningDate, new {@class = "form-control", @placeholder = "Enter Date Of Joining...", @type = "date"})
+                                </div>
+                                </div>
+                                }*@
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Address</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextAreaFor(model => model.Address, new{@class="form-control" , @placeholder="Enter Address..." , @type="text" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor PinCode</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.PinCode, new{@class="form-control" , @placeholder="Enter PinCode..." , @type="number" , @maxlength="6", @minlength="6",  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Qualification</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Qualification, new{@class="form-control" , @placeholder="Enter Qualification..." , @type="text" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Fees</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Fees, new{@class="form-control" , @placeholder="Enter Fees..." , @type="decimal" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Available Chambers</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(model => model.Availablechambers, new{@class="form-control" , @placeholder="Enter Available Chambers..." , @type="text" ,  @required = "required" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="orangeForm-name37">Doctor Available or Not</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            @Html.CheckBox("IsAvailable", Model.IsAvailable ?? false)
+                                        </div>
+                                    </div>
+                                    <br />
+
+
+
+                                    @Html.HiddenFor(model => model.ImagePath)
+                                    <div class="form-group row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4">
+                                            <a href="#" class="pop" pageTitle="@Model.ImagePath">
+                                                @if (@Model.ImagePath == null || @Model.ImagePath == "")
+                                                {
+                                                    <img id="img_profilepic" src='~/img/profile.png' style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black; margin-left: 140px; margin-top: 10px;" alt="No Picture">
+                                                }
+                                                else
+                                                {
+                                                    <img id="img_profilepic" src='~/Profile/@Model.ImagePath' style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black; margin-left: 140px; margin-top: 10px;" alt="No Picture">
+                                                }
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4"></div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label class="orangeForm-name37">Profile Picture</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="btn btn-default btn-file">
+                                                <i class="fas fa-upload"></i> Upload Picture ( Max. Size 15MB)
+                                                <input type="file" name="Attachments" onchange="showPic()" id="file_ProfilePic" accept=".jpg, .jpeg, .png">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    @*<div class="md-form">
+                                <i class="fa fa-envelope prefix grey-text"></i>
+                                <input type="text" id="orangeForm-email37" class="form-control">
+                                <label for="orangeForm-email37">Your email</label>
+                                </div>*@
+
+                                    <div class="text-center py-4">
+                                        <button value="Save" name="Command" class="btn btn-success btn-outline-primary">Save Data<i class="fa fa-paper-plane-o ml-1"></i></button>
+                                    </div>
+                                </form>
+                                <!-- Form register -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+
+                <hr class="my-4">
+
+
+            </div>
+            <!--MDB Forms-->
+
+        </main>
+
+    </div>
+
+}
+
+
+<script>
+    $('#img_profilepic').click(function () {
+        $('#file_ProfilePic').trigger('click');
+    });
+
+    function showPic() {
+        var file = $("#file_ProfilePic")[0].files[0];
+        var imageType = /image.*/;
+        if (file.type.match(imageType)) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img_profilepic').attr("src", e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
